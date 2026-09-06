@@ -1032,13 +1032,27 @@
            HISTORY VIDEO
         ================================================== */
 
-        function openHistoryVideo() {
-            const popup = document.getElementById('historyVideoPopup');
-            const trigger = document.querySelector('.history-video-container');
+       function closeHistoryVideo() {
+    const popup = document.getElementById('historyVideoPopup');
+    const video = document.getElementById('historyVideo');
+    const music = document.getElementById('bg-music');
 
-            if (trigger) playClickEffect(trigger);
-            if (popup) popup.classList.add('active');
-        }
+    // Hentikan dan reset video
+    if (video) {
+        video.pause();
+        video.currentTime = 0;
+    }
+
+    // Tutup popup
+    if (popup) popup.classList.remove('active');
+
+    // Lanjutkan musik background
+    if (music) {
+        music.play().catch(error => {
+            console.log("Audio play blocked/error: ", error);
+        });
+    }
+}
 
         function closeHistoryVideo() {
             const popup = document.getElementById('historyVideoPopup');
