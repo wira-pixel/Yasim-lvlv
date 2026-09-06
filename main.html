@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Surprise for You, Sayang</title>
 
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="style.css?v=4">
 
     <script>
         if (sessionStorage.getItem('isLoggedIn') !== 'true') {
@@ -20,19 +20,47 @@
          AMBIENT BACKGROUND
     ====================================================== -->
 
-    <div class="ambient-background">
-        <div class="ambient-glow glow-one"></div>
-        <div class="ambient-glow glow-two"></div>
-        <div class="ambient-glow glow-three"></div>
-    </div>
+  <div class="ambient-background">
+    <div class="ambient-glow glow-one"></div>
+    <div class="ambient-glow glow-two"></div>
+    <div class="ambient-glow glow-three"></div>
+</div>
 
-    <div id="explosion-container"></div>
+<!-- =====================================================
+     FALLING PETALS / HEARTS / SPARKLES
+====================================================== -->
+
+<div class="falling-petals">
+    <span>🌸</span>
+    <span>🌷</span>
+    <span>🌸</span>
+    <span>✨</span>
+    <span>🌸</span>
+    <span>🌷</span>
+    <span>💖</span>
+    <span>🌸</span>
+    <span>🤍</span>
+    <span>🌸</span>
+    <span>✨</span>
+    <span>💗</span>
+    <span>🌷</span>
+    <span>🌸</span>
+    <span>💕</span>
+    <span>✨</span>
+    <span>🌺</span>
+    <span>🤍</span>
+    <span>🌸</span>
+    <span>💖</span>
+</div>
+
+<div id="explosion-container"></div>
 
     <!-- =====================================================
          PROGRESS INDICATOR
     ====================================================== -->
 
     <div class="story-progress" id="storyProgress">
+
         <div class="progress-item active" data-section="gift-section">
             <span class="progress-dot"></span>
             <span class="progress-label">Gift</span>
@@ -72,6 +100,7 @@
             <span class="progress-dot"></span>
             <span class="progress-label">History</span>
         </div>
+
     </div>
 
 
@@ -130,10 +159,13 @@
 
 
     <!-- =====================================================
-         MAIN CONGRATULATION
+         MAIN CONGRATULATION / MESSAGE
     ====================================================== -->
 
-    <section class="section hidden-section cinematic-section" id="content-section">
+    <section
+        class="section hidden-section cinematic-section"
+        id="content-section"
+    >
 
         <div class="card-glass main-message-card">
 
@@ -179,6 +211,16 @@
                 <span>↓</span>
             </div>
 
+
+            <!-- TOMBOL BUKA SURAT -->
+            <button
+                class="primary-button message-letter-button"
+                id="messageLetterButton"
+                onclick="openLetter()"
+            >
+                Buka Surat 💌
+            </button>
+
         </div>
 
     </section>
@@ -188,7 +230,10 @@
          SUPPORT / LETTER SECTION
     ====================================================== -->
 
-    <section class="section hidden-section" id="support-section">
+    <section
+        class="section hidden-section"
+        id="support-section"
+    >
 
         <div class="card-glass letter-section-card">
 
@@ -205,8 +250,10 @@
                 "selamat".
             </p>
 
-            <div class="envelope-container"
-                 onclick="openEnvelope()">
+            <div
+                class="envelope-container"
+                onclick="openEnvelope()"
+            >
 
                 <div class="envelope">
 
@@ -241,7 +288,10 @@
          GALLERY SECTION
     ====================================================== -->
 
-    <section class="section hidden-section" id="gallery-section">
+    <section
+        class="section hidden-section"
+        id="gallery-section"
+    >
 
         <div class="gallery-section-inner">
 
@@ -265,11 +315,13 @@
                 <div class="polaroid polaroid-one">
 
                     <div class="polaroid-image">
+
                         <img
                             src="foto1.jpeg"
                             alt="Our memory"
                             loading="lazy"
                         >
+
                     </div>
 
                     <div class="polaroid-caption">
@@ -282,11 +334,13 @@
                 <div class="polaroid polaroid-two">
 
                     <div class="polaroid-image">
+
                         <img
                             src="foto2.jpeg"
                             alt="Our memory"
                             loading="lazy"
                         >
+
                     </div>
 
                     <div class="polaroid-caption">
@@ -299,11 +353,13 @@
                 <div class="polaroid polaroid-three">
 
                     <div class="polaroid-image">
+
                         <img
                             src="foto3.jpeg"
                             alt="Our memory"
                             loading="lazy"
                         >
+
                     </div>
 
                     <div class="polaroid-caption">
@@ -327,7 +383,10 @@
          BOUQUET SECTION
     ====================================================== -->
 
-    <section class="section hidden-section" id="interactive-section">
+    <section
+        class="section hidden-section"
+        id="interactive-section"
+    >
 
         <div class="card-glass bouquet-section-card">
 
@@ -346,8 +405,10 @@
 
             <div class="bouquet-delivery-area">
 
-                <div class="bouquet-placeholder"
-                     onclick="showBouquet()">
+                <div
+                    class="bouquet-placeholder"
+                    onclick="showBouquet()"
+                >
 
                     <div class="bouquet-icon">
                         💐
@@ -363,8 +424,10 @@
 
                 </div>
 
-                <div class="bouquet-loading"
-                     id="bouquetLoading">
+                <div
+                    class="bouquet-loading"
+                    id="bouquetLoading"
+                >
 
                     <div class="loading-flower">
                         🌷
@@ -387,7 +450,10 @@
          OUR HISTORY
     ====================================================== -->
 
-    <section class="section hidden-section" id="history-section">
+    <section
+        class="section hidden-section"
+        id="history-section"
+    >
 
         <div class="card-glass history-section-card">
 
@@ -403,8 +469,10 @@
                 And this is only the beginning...
             </p>
 
-            <div class="history-video-container"
-                 onclick="openHistoryVideo()">
+            <div
+                class="history-video-container"
+                onclick="openHistoryVideo()"
+            >
 
                 <div class="history-video-preview">
 
@@ -434,7 +502,10 @@
          FINAL / CLOSING SECTION
     ====================================================== -->
 
-    <section class="section final-section" id="final-section">
+    <section
+        class="section final-section"
+        id="final-section"
+    >
 
         <div class="final-content">
 
@@ -485,13 +556,17 @@
          LETTER POPUP
     ====================================================== -->
 
-    <div class="popup-overlay"
-         id="letterPopup">
+    <div
+        class="popup-overlay"
+        id="letterPopup"
+    >
 
         <div class="letter-popup-card">
 
-            <button class="popup-close"
-                    onclick="closeLetter()">
+            <button
+                class="popup-close"
+                onclick="closeLetter()"
+            >
                 ×
             </button>
 
@@ -558,13 +633,17 @@
          BOUQUET POPUP
     ====================================================== -->
 
-    <div class="popup-overlay"
-         id="bouquetPopup">
+    <div
+        class="popup-overlay"
+        id="bouquetPopup"
+    >
 
         <div class="bouquet-popup-card">
 
-            <button class="popup-close"
-                    onclick="closeBouquet()">
+            <button
+                class="popup-close"
+                onclick="closeBouquet()"
+            >
                 ×
             </button>
 
@@ -598,13 +677,17 @@
          ENVELOPE INVITATION POPUP
     ====================================================== -->
 
-    <div class="popup-overlay"
-         id="envelope-invitation">
+    <div
+        class="popup-overlay"
+        id="envelope-invitation"
+    >
 
         <div class="invitation-card">
 
-            <button class="popup-close"
-                    onclick="closeEnvelope()">
+            <button
+                class="popup-close"
+                onclick="closeEnvelope()"
+            >
                 ×
             </button>
 
@@ -621,8 +704,10 @@
                 sengaja dibuat untukmu.
             </p>
 
-            <button class="primary-button"
-                    onclick="openLetter()">
+            <button
+                class="primary-button"
+                onclick="openLetter()"
+            >
                 Buka Surat 💌
             </button>
 
@@ -635,13 +720,17 @@
          HISTORY VIDEO POPUP
     ====================================================== -->
 
-    <div class="popup-overlay"
-         id="historyVideoPopup">
+    <div
+        class="popup-overlay"
+        id="historyVideoPopup"
+    >
 
         <div class="history-video-popup-card">
 
-            <button class="popup-close"
-                    onclick="closeHistoryVideo()">
+            <button
+                class="popup-close"
+                onclick="closeHistoryVideo()"
+            >
                 ×
             </button>
 
@@ -652,6 +741,7 @@
                     controls
                     playsinline
                 >
+
                     <source
                         src="history.mp4"
                         type="video/mp4"
@@ -659,6 +749,7 @@
 
                     Browser kamu tidak mendukung
                     pemutaran video.
+
                 </video>
 
             </div>
@@ -677,10 +768,12 @@
         loop
         preload="auto"
     >
+
         <source
             src="musik.mp4"
             type="audio/mp4"
         >
+
     </audio>
 
 
@@ -696,15 +789,20 @@
 
         function openGift() {
 
-            const gift = document.querySelector('.gift-box');
+            const gift =
+                document.querySelector('.gift-box');
 
-            if (gift && gift.classList.contains('opened')) {
+            if (
+                gift &&
+                gift.classList.contains('opened')
+            ) {
                 return;
             }
 
             if (gift) {
                 gift.classList.add('opened');
             }
+
 
             const music =
                 document.getElementById('bg-music');
@@ -765,12 +863,14 @@
                 span.style.left = '50vw';
                 span.style.top = '50vh';
 
+
                 const xRandom =
                     (
                         Math.random() - 0.5
                     ) *
                     window.innerWidth *
                     0.8;
+
 
                 const yRandom =
                     (
@@ -779,8 +879,10 @@
                     window.innerHeight *
                     0.8;
 
+
                 const rotRandom =
                     Math.random() * 360;
+
 
                 span.style.setProperty(
                     '--x',
@@ -832,8 +934,10 @@
                     );
 
                 if (giftSection) {
+
                     giftSection.style.display =
                         'none';
+
                 }
 
 
@@ -859,7 +963,10 @@
 
                         if (!el) return;
 
-                        el.style.display = 'flex';
+
+                        el.style.display =
+                            'flex';
+
 
                         setTimeout(() => {
 
@@ -880,6 +987,73 @@
                 }, 1200);
 
             }, 900);
+
+        }
+
+
+        /* =================================================
+           LETTER SCROLL LOCK
+        ================================================== */
+
+        let savedScrollPosition = 0;
+
+
+        function lockPageScroll() {
+
+            savedScrollPosition =
+                window.scrollY;
+
+
+            document.body.classList.add(
+                'letter-open'
+            );
+
+
+            document.body.style.position =
+                'fixed';
+
+            document.body.style.top =
+                `-${savedScrollPosition}px`;
+
+            document.body.style.left =
+                '0';
+
+            document.body.style.right =
+                '0';
+
+            document.body.style.width =
+                '100%';
+
+        }
+
+
+        function unlockPageScroll() {
+
+            document.body.classList.remove(
+                'letter-open'
+            );
+
+
+            document.body.style.position =
+                '';
+
+            document.body.style.top =
+                '';
+
+            document.body.style.left =
+                '';
+
+            document.body.style.right =
+                '';
+
+            document.body.style.width =
+                '';
+
+
+            window.scrollTo(
+                0,
+                savedScrollPosition
+            );
 
         }
 
@@ -921,12 +1095,48 @@
 
             }
 
+
+            /*
+             * Setelah popup undangan ditutup,
+             * tombol buka surat tetap tersedia
+             * di bagian pesan.
+             */
+
+            const button =
+                document.getElementById(
+                    'messageLetterButton'
+                );
+
+            if (button) {
+
+                button.classList.add(
+                    'visible'
+                );
+
+            }
+
         }
 
 
         function openLetter() {
 
-            closeEnvelope();
+            /*
+             * Tutup popup undangan terlebih dahulu.
+             */
+
+            const invitation =
+                document.getElementById(
+                    'envelope-invitation'
+                );
+
+            if (invitation) {
+
+                invitation.classList.remove(
+                    'active'
+                );
+
+            }
+
 
             setTimeout(() => {
 
@@ -941,9 +1151,17 @@
                         'active'
                     );
 
+
+                    /*
+                     * Kunci halaman belakang
+                     * supaya tidak bisa discroll.
+                     */
+
+                    lockPageScroll();
+
                 }
 
-            }, 300);
+            }, 250);
 
         }
 
@@ -963,6 +1181,106 @@
 
             }
 
+
+            /*
+             * Buka kembali scroll halaman.
+             */
+
+            unlockPageScroll();
+
+
+            /*
+             * Setelah surat ditutup,
+             * tombol buka surat tetap ada.
+             */
+
+            const button =
+                document.getElementById(
+                    'messageLetterButton'
+                );
+
+            if (button) {
+
+                button.classList.add(
+                    'visible'
+                );
+
+            }
+
+        }
+
+
+        /* =================================================
+           AUTO LETTER INVITATION
+           MUNCUL SAAT SCROLL KE BAGIAN PESAN
+        ================================================== */
+
+        let messagePopupShown = false;
+
+
+        function setupMessagePopupObserver() {
+
+            const messageSection =
+                document.getElementById(
+                    'content-section'
+                );
+
+
+            if (!messageSection) {
+                return;
+            }
+
+
+            const messageObserver =
+                new IntersectionObserver(
+                    function(entries) {
+
+                        entries.forEach(
+                            function(entry) {
+
+                                if (
+                                    entry.isIntersecting &&
+                                    !messagePopupShown
+                                ) {
+
+                                    messagePopupShown =
+                                        true;
+
+
+                                    setTimeout(() => {
+
+                                        const popup =
+                                            document.getElementById(
+                                                'envelope-invitation'
+                                            );
+
+
+                                        if (popup) {
+
+                                            popup.classList.add(
+                                                'active'
+                                            );
+
+                                        }
+
+                                    }, 700);
+
+                                }
+
+                            }
+                        );
+
+                    },
+                    {
+                        threshold: 0.5
+                    }
+                );
+
+
+            messageObserver.observe(
+                messageSection
+            );
+
         }
 
 
@@ -976,6 +1294,7 @@
                 document.getElementById(
                     'bouquetLoading'
                 );
+
 
             if (loading) {
 
@@ -1002,6 +1321,7 @@
                         'bouquetPopup'
                     );
 
+
                 if (popup) {
 
                     popup.classList.add(
@@ -1021,6 +1341,7 @@
                 document.getElementById(
                     'bouquetPopup'
                 );
+
 
             if (popup) {
 
@@ -1044,6 +1365,7 @@
                     'historyVideoPopup'
                 );
 
+
             if (popup) {
 
                 popup.classList.add(
@@ -1062,6 +1384,7 @@
                     'historyVideoPopup'
                 );
 
+
             const video =
                 document.getElementById(
                     'historyVideo'
@@ -1071,6 +1394,7 @@
             if (video) {
 
                 video.pause();
+
                 video.currentTime = 0;
 
             }
@@ -1095,35 +1419,85 @@
             'click',
             function(event) {
 
-                const popups = [
-                    'letterPopup',
-                    'bouquetPopup',
-                    'envelope-invitation',
-                    'historyVideoPopup'
-                ];
+                /*
+                 * LETTER POPUP
+                 */
+
+                const letterPopup =
+                    document.getElementById(
+                        'letterPopup'
+                    );
 
 
-                popups.forEach(
-                    function(id) {
+                if (
+                    letterPopup &&
+                    event.target === letterPopup &&
+                    letterPopup.classList.contains('active')
+                ) {
 
-                        const popup =
-                            document.getElementById(
-                                id
-                            );
+                    closeLetter();
 
-                        if (
-                            popup &&
-                            event.target === popup
-                        ) {
+                }
 
-                            popup.classList.remove(
-                                'active'
-                            );
 
-                        }
+                /*
+                 * BOUQUET POPUP
+                 */
 
-                    }
-                );
+                const bouquetPopup =
+                    document.getElementById(
+                        'bouquetPopup'
+                    );
+
+
+                if (
+                    bouquetPopup &&
+                    event.target === bouquetPopup
+                ) {
+
+                    closeBouquet();
+
+                }
+
+
+                /*
+                 * ENVELOPE INVITATION
+                 */
+
+                const envelopePopup =
+                    document.getElementById(
+                        'envelope-invitation'
+                    );
+
+
+                if (
+                    envelopePopup &&
+                    event.target === envelopePopup
+                ) {
+
+                    closeEnvelope();
+
+                }
+
+
+                /*
+                 * HISTORY VIDEO
+                 */
+
+                const historyPopup =
+                    document.getElementById(
+                        'historyVideoPopup'
+                    );
+
+
+                if (
+                    historyPopup &&
+                    event.target === historyPopup
+                ) {
+
+                    closeHistoryVideo();
+
+                }
 
             }
         );
@@ -1164,7 +1538,10 @@
                             sectionId
                         );
 
-                    if (!section) return;
+
+                    if (!section) {
+                        return;
+                    }
 
 
                     const rect =
@@ -1176,7 +1553,8 @@
                         window.innerHeight * 0.55
                     ) {
 
-                        currentIndex = index;
+                        currentIndex =
+                            index;
 
                     }
 
@@ -1192,6 +1570,7 @@
                         index === currentIndex
                     );
 
+
                     item.classList.toggle(
                         'completed',
                         index < currentIndex
@@ -1206,7 +1585,9 @@
         window.addEventListener(
             'scroll',
             updateStoryProgress,
-            { passive: true }
+            {
+                passive: true
+            }
         );
 
 
@@ -1242,13 +1623,13 @@
 
 
         document
-            .querySelectorAll(
-                '.section'
-            )
+            .querySelectorAll('.section')
             .forEach(
                 function(section) {
 
-                    observer.observe(section);
+                    observer.observe(
+                        section
+                    );
 
                 }
             );
@@ -1258,40 +1639,42 @@
            SMOOTH SCROLL
         ================================================== */
 
-        document.querySelectorAll(
-            '.progress-item'
-        ).forEach(
-            function(item) {
+        document
+            .querySelectorAll('.progress-item')
+            .forEach(
+                function(item) {
 
-                item.addEventListener(
-                    'click',
-                    function() {
+                    item.addEventListener(
+                        'click',
+                        function() {
 
-                        const targetId =
-                            item.dataset.section;
+                            const targetId =
+                                item.dataset.section;
 
-                        const target =
-                            document.getElementById(
-                                targetId
-                            );
 
-                        if (
-                            target &&
-                            target.style.display !==
-                            'none'
-                        ) {
+                            const target =
+                                document.getElementById(
+                                    targetId
+                                );
 
-                            target.scrollIntoView({
-                                behavior: 'smooth'
-                            });
+
+                            if (
+                                target &&
+                                target.style.display !==
+                                'none'
+                            ) {
+
+                                target.scrollIntoView({
+                                    behavior: 'smooth'
+                                });
+
+                            }
 
                         }
+                    );
 
-                    }
-                );
-
-            }
-        );
+                }
+            );
 
 
         /* =================================================
@@ -1302,14 +1685,19 @@
             'keydown',
             function(event) {
 
-                if (event.key !== 'Escape') {
+                if (
+                    event.key !== 'Escape'
+                ) {
                     return;
                 }
 
 
                 closeLetter();
+
                 closeBouquet();
+
                 closeEnvelope();
+
                 closeHistoryVideo();
 
             }
@@ -1345,6 +1733,7 @@
                         'final-section'
                     );
 
+
                 if (finalSection) {
 
                     finalSection.style.display =
@@ -1353,7 +1742,35 @@
                 }
 
 
+                /*
+                 * Tombol buka surat awalnya
+                 * disembunyikan.
+                 */
+
+                const letterButton =
+                    document.getElementById(
+                        'messageLetterButton'
+                    );
+
+
+                if (letterButton) {
+
+                    letterButton.classList.remove(
+                        'visible'
+                    );
+
+                }
+
+
                 updateStoryProgress();
+
+
+                /*
+                 * Pasang observer setelah
+                 * DOM selesai dimuat.
+                 */
+
+                setupMessagePopupObserver();
 
             }
         );
