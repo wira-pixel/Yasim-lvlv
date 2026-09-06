@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise for You, Sayang</title>
+
+    <link rel="stylesheet" href="style.css?v=3">
+
+    <script>
+        if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.replace('index.html');
+        }
+    </script>
+</head>
+
+<body>
+
+    <!-- =====================================================
+         AMBIENT BACKGROUND
+    ====================================================== -->
+
+    <div class="ambient-background">
+        <div class="ambient-glow glow-one"></div>
+        <div class="ambient-glow glow-two"></div>
+        <div class="ambient-glow glow-three"></div>
+    </div>
+
+    <div id="explosion-container"></div>
+
+    <!-- =====================================================
+         PROGRESS INDICATOR
+    ====================================================== -->
+
+    <div class="story-progress" id="storyProgress">
+        <div class="progress-item active" data-section="gift-section">
+            <span class="progress-dot"></span>
+            <span class="progress-label">Gift</span>
+        </div>
+
+        <div class="progress-line"></div>
+
+        <div class="progress-item" data-section="content-section">
+            <span class="progress-dot"></span>
+            <span class="progress-label">Message</span>
+        </div>
+
+        <div class="progress-line"></div>
+
+        <div class="progress-item" data-section="support-section">
+            <span class="progress-dot"></span>
+            <span class="progress-label">Letter</span>
+        </div>
+
+        <div class="progress-line"></div>
+
+        <div class="progress-item" data-section="gallery-section">
+            <span class="progress-dot"></span>
+            <span class="progress-label">Memories</span>
+        </div>
+
+        <div class="progress-line"></div>
+
+        <div class="progress-item" data-section="interactive-section">
+            <span class="progress-dot"></span>
+            <span class="progress-label">Bouquet</span>
+        </div>
+
+        <div class="progress-line"></div>
+
+        <div class="progress-item" data-section="history-section">
+            <span class="progress-dot"></span>
+            <span class="progress-label">History</span>
+        </div>
+    </div>
+
+
+    <!-- =====================================================
+         GIFT SECTION
+    ====================================================== -->
+
+    <section class="section gift-section-main" id="gift-section">
+
+        <div class="card-glass gift-intro-card">
+
+            <div class="opening-small-text">
+                ✨ A little surprise for you ✨
+            </div>
+
+            <h1 class="opening-title">
+                Ada sesuatu untukmu...
+            </h1>
+
+            <p class="opening-subtitle">
+                Tap the gift box to open it 🎁
+            </p>
+
+            <div class="gift-box" onclick="openGift()">
+
+                <div class="gift-lid">
+
+                    <div class="gift-bow">
+                        <span class="bow-left"></span>
+                        <span class="bow-right"></span>
+                        <span class="bow-center"></span>
+                    </div>
+
+                </div>
+
+                <div class="gift-body">
+
+                    <div class="gift-ribbon vertical"></div>
+                    <div class="gift-ribbon horizontal"></div>
+
+                </div>
+
+                <div class="gift-glow"></div>
+
+            </div>
+
+            <div class="opening-hint">
+                <span>♡</span>
+                Click the gift
+                <span>♡</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MAIN CONGRATULATION
+    ====================================================== -->
+
+    <section class="section hidden-section cinematic-section" id="content-section">
+
+        <div class="card-glass main-message-card">
+
+            <div class="message-top-label">
+                ✨ FINALLY ✨
+            </div>
+
+            <div class="message-heart">
+                ♡
+            </div>
+
+            <h1 class="main-title">
+                YOU DID IT!
+            </h1>
+
+            <h2 class="main-subtitle">
+                HAPPY SIDANG SKRIPSI
+            </h2>
+
+            <div class="title-divider">
+                <span></span>
+                ♡
+                <span></span>
+            </div>
+
+            <p class="main-message">
+                Selamat ya, Sayang.
+            </p>
+
+            <p class="main-message-secondary">
+                Setelah semua perjuangan, lelah, revisi,
+                dan hari-hari yang tidak mudah,
+                akhirnya kamu sampai juga di titik ini.
+            </p>
+
+            <div class="proud-text">
+                I'm so proud of you. 🤍
+            </div>
+
+            <div class="scroll-hint">
+                <span>↓</span>
+                Keep scrolling
+                <span>↓</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SUPPORT / LETTER SECTION
+    ====================================================== -->
+
+    <section class="section hidden-section" id="support-section">
+
+        <div class="card-glass letter-section-card">
+
+            <div class="section-eyebrow">
+                A LETTER FOR YOU
+            </div>
+
+            <h2 class="section-title">
+                Ada sedikit sesuatu yang ingin kusampaikan...
+            </h2>
+
+            <p class="section-description">
+                Karena rasanya tidak cukup hanya bilang
+                "selamat".
+            </p>
+
+            <div class="envelope-container"
+                 onclick="openEnvelope()">
+
+                <div class="envelope">
+
+                    <div class="envelope-back"></div>
+
+                    <div class="envelope-paper">
+                        <span>♡</span>
+                    </div>
+
+                    <div class="envelope-front"></div>
+
+                    <div class="envelope-flap"></div>
+
+                    <div class="envelope-seal">
+                        ♥
+                    </div>
+
+                </div>
+
+                <div class="envelope-text">
+                    Tap the envelope 💌
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         GALLERY SECTION
+    ====================================================== -->
+
+    <section class="section hidden-section" id="gallery-section">
+
+        <div class="gallery-section-inner">
+
+            <div class="section-eyebrow">
+                LITTLE MEMORIES
+            </div>
+
+            <h2 class="section-title">
+                Some Moments With You
+            </h2>
+
+            <p class="section-description">
+                Dari banyaknya momen yang pernah kita lewati,
+                beberapa di antaranya akan selalu punya tempat
+                spesial.
+            </p>
+
+
+            <div class="gallery-container">
+
+                <div class="polaroid polaroid-one">
+
+                    <div class="polaroid-image">
+                        <img
+                            src="foto1.jpeg"
+                            alt="Our memory"
+                            loading="lazy"
+                        >
+                    </div>
+
+                    <div class="polaroid-caption">
+                        one of my favorite moments ♡
+                    </div>
+
+                </div>
+
+
+                <div class="polaroid polaroid-two">
+
+                    <div class="polaroid-image">
+                        <img
+                            src="foto2.jpeg"
+                            alt="Our memory"
+                            loading="lazy"
+                        >
+                    </div>
+
+                    <div class="polaroid-caption">
+                        a memory worth keeping
+                    </div>
+
+                </div>
+
+
+                <div class="polaroid polaroid-three">
+
+                    <div class="polaroid-image">
+                        <img
+                            src="foto3.jpeg"
+                            alt="Our memory"
+                            loading="lazy"
+                        >
+                    </div>
+
+                    <div class="polaroid-caption">
+                        and hopefully many more ♡
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="gallery-bottom-text">
+                Every picture has a story.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         BOUQUET SECTION
+    ====================================================== -->
+
+    <section class="section hidden-section" id="interactive-section">
+
+        <div class="card-glass bouquet-section-card">
+
+            <div class="section-eyebrow">
+                THIS ONE IS FOR YOU
+            </div>
+
+            <h2 class="section-title">
+                A Little Flower For You 💐
+            </h2>
+
+            <p class="section-description">
+                Kalau aku bisa memberikannya langsung,
+                mungkin aku sudah berdiri di depanmu sekarang.
+            </p>
+
+            <div class="bouquet-delivery-area">
+
+                <div class="bouquet-placeholder"
+                     onclick="showBouquet()">
+
+                    <div class="bouquet-icon">
+                        💐
+                    </div>
+
+                    <div class="bouquet-delivery-text">
+                        Receive your bouquet
+                    </div>
+
+                    <div class="bouquet-click-hint">
+                        Tap to open
+                    </div>
+
+                </div>
+
+                <div class="bouquet-loading"
+                     id="bouquetLoading">
+
+                    <div class="loading-flower">
+                        🌷
+                    </div>
+
+                    <p>
+                        Preparing something special...
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         OUR HISTORY
+    ====================================================== -->
+
+    <section class="section hidden-section" id="history-section">
+
+        <div class="card-glass history-section-card">
+
+            <div class="section-eyebrow">
+                OUR STORY
+            </div>
+
+            <h2 class="section-title">
+                Our History 🎞️
+            </h2>
+
+            <p class="section-description">
+                And this is only the beginning...
+            </p>
+
+            <div class="history-video-container"
+                 onclick="openHistoryVideo()">
+
+                <div class="history-video-preview">
+
+                    <div class="history-play-button">
+                        ▶
+                    </div>
+
+                    <div class="history-video-label">
+                        Watch our story
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="history-ending-text">
+                From all the little moments we've shared,
+                I hope there will be many more memories to come.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FINAL / CLOSING SECTION
+    ====================================================== -->
+
+    <section class="section final-section" id="final-section">
+
+        <div class="final-content">
+
+            <div class="final-sparkle">
+                ✨
+            </div>
+
+            <div class="final-small-text">
+                AND BEFORE YOU GO...
+            </div>
+
+            <h2 class="final-title">
+                I'm Proud of You.
+            </h2>
+
+            <div class="final-divider">
+                ♡
+            </div>
+
+            <p class="final-message">
+                Selamat atas satu langkah besar
+                yang sudah kamu lewati.
+            </p>
+
+            <p class="final-message">
+                Semoga setelah ini ada lebih banyak
+                hal baik yang datang kepadamu.
+            </p>
+
+            <p class="final-message-emphasis">
+                Congratulations, Sayang. 🤍
+            </p>
+
+            <div class="final-heart">
+                ♥
+            </div>
+
+            <div class="final-end">
+                With love, always.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         LETTER POPUP
+    ====================================================== -->
+
+    <div class="popup-overlay"
+         id="letterPopup">
+
+        <div class="letter-popup-card">
+
+            <button class="popup-close"
+                    onclick="closeLetter()">
+                ×
+            </button>
+
+            <div class="letter-header">
+                <span>♡</span>
+                <h2>For You</h2>
+                <span>♡</span>
+            </div>
+
+            <div class="letter-content">
+
+                <p>
+                    Sayang,
+                </p>
+
+                <p>
+                    Selamat atas sidang skripsinya.
+                    Aku tahu untuk sampai ke titik ini
+                    bukan sesuatu yang mudah.
+                </p>
+
+                <p>
+                    Ada banyak rasa capek, bingung,
+                    tekanan, revisi, dan mungkin
+                    beberapa hari ketika semuanya terasa
+                    berat.
+                </p>
+
+                <p>
+                    Tapi kamu tetap bertahan.
+                    Kamu tetap menyelesaikannya.
+                    Dan hari ini kamu bisa melihat sendiri
+                    bahwa semua perjuangan itu tidak sia-sia.
+                </p>
+
+                <p>
+                    Aku bangga sama kamu.
+                    Bukan hanya karena kamu berhasil
+                    melewati sidang, tapi karena kamu
+                    tidak menyerah ketika perjalanan
+                    terasa sulit.
+                </p>
+
+                <p>
+                    Semoga setelah ini langkahmu
+                    semakin ringan dan semakin banyak
+                    hal baik yang datang.
+                </p>
+
+                <p class="letter-signature">
+                    Congratulations, Sayang. 🤍
+                    <br>
+                    You did amazing.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         BOUQUET POPUP
+    ====================================================== -->
+
+    <div class="popup-overlay"
+         id="bouquetPopup">
+
+        <div class="bouquet-popup-card">
+
+            <button class="popup-close"
+                    onclick="closeBouquet()">
+                ×
+            </button>
+
+            <div class="bouquet-popup-header">
+                <span>💐</span>
+                <h2>For You</h2>
+                <span>💐</span>
+            </div>
+
+            <div class="bouquet-photo-wrapper">
+
+                <img
+                    src="buket-asli.jpeg"
+                    alt="Buket Asli"
+                    class="bouquet-photo"
+                >
+
+            </div>
+
+            <p class="bouquet-popup-text">
+                Karena kamu pantas mendapatkan bunga
+                setelah semua perjuanganmu. 🤍
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         ENVELOPE INVITATION POPUP
+    ====================================================== -->
+
+    <div class="popup-overlay"
+         id="envelope-invitation">
+
+        <div class="invitation-card">
+
+            <button class="popup-close"
+                    onclick="closeEnvelope()">
+                ×
+            </button>
+
+            <div class="invitation-decoration">
+                ✨
+            </div>
+
+            <h2>
+                A Special Message
+            </h2>
+
+            <p>
+                Ada satu surat kecil yang memang
+                sengaja dibuat untukmu.
+            </p>
+
+            <button class="primary-button"
+                    onclick="openLetter()">
+                Buka Surat 💌
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         HISTORY VIDEO POPUP
+    ====================================================== -->
+
+    <div class="popup-overlay"
+         id="historyVideoPopup">
+
+        <div class="history-video-popup-card">
+
+            <button class="popup-close"
+                    onclick="closeHistoryVideo()">
+                ×
+            </button>
+
+            <div class="video-wrapper">
+
+                <video
+                    id="historyVideo"
+                    controls
+                    playsinline
+                >
+                    <source
+                        src="history.mp4"
+                        type="video/mp4"
+                    >
+
+                    Browser kamu tidak mendukung
+                    pemutaran video.
+                </video>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         BACKGROUND MUSIC
+    ====================================================== -->
+
+    <audio
+        id="bg-music"
+        loop
+        preload="auto"
+    >
+        <source
+            src="musik.mp4"
+            type="audio/mp4"
+        >
+    </audio>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+        /* =================================================
+           GIFT
+        ================================================== */
+
+        function openGift() {
+
+            const gift = document.querySelector('.gift-box');
+
+            if (gift && gift.classList.contains('opened')) {
+                return;
+            }
+
+            if (gift) {
+                gift.classList.add('opened');
+            }
+
+            const music =
+                document.getElementById('bg-music');
+
+            if (music) {
+
+                music.play().catch(error => {
+
+                    console.log(
+                        "Audio play blocked/error: ",
+                        error
+                    );
+
+                });
+
+            }
+
+
+            const container =
+                document.getElementById(
+                    'explosion-container'
+                );
+
+            const emojis = [
+                '🌸',
+                '🌷',
+                '🌻',
+                '✨',
+                '🤍',
+                '💖',
+                '💐'
+            ];
+
+            const totalEmojis = 35;
+
+
+            for (
+                let i = 0;
+                i < totalEmojis;
+                i++
+            ) {
+
+                const span =
+                    document.createElement('span');
+
+                span.classList.add(
+                    'exploding-emoji'
+                );
+
+                span.innerText =
+                    emojis[
+                        Math.floor(
+                            Math.random() *
+                            emojis.length
+                        )
+                    ];
+
+                span.style.left = '50vw';
+                span.style.top = '50vh';
+
+                const xRandom =
+                    (
+                        Math.random() - 0.5
+                    ) *
+                    window.innerWidth *
+                    0.8;
+
+                const yRandom =
+                    (
+                        Math.random() - 0.5
+                    ) *
+                    window.innerHeight *
+                    0.8;
+
+                const rotRandom =
+                    Math.random() * 360;
+
+                span.style.setProperty(
+                    '--x',
+                    `${xRandom}px`
+                );
+
+                span.style.setProperty(
+                    '--y',
+                    `${yRandom}px`
+                );
+
+                span.style.setProperty(
+                    '--rot',
+                    `${rotRandom}deg`
+                );
+
+                container.appendChild(span);
+
+            }
+
+
+            setTimeout(() => {
+
+                const giftSec =
+                    document.getElementById(
+                        'gift-section'
+                    );
+
+                if (giftSec) {
+
+                    giftSec.style.opacity = '0';
+
+                    giftSec.style.transform =
+                        'scale(0.8)';
+
+                    giftSec.style.transition =
+                        'all 0.5s ease';
+
+                }
+
+            }, 400);
+
+
+            setTimeout(() => {
+
+                const giftSection =
+                    document.getElementById(
+                        'gift-section'
+                    );
+
+                if (giftSection) {
+                    giftSection.style.display =
+                        'none';
+                }
+
+
+                const sections = [
+
+                    'content-section',
+                    'support-section',
+                    'gallery-section',
+                    'interactive-section',
+                    'history-section',
+                    'final-section'
+
+                ];
+
+
+                sections.forEach(
+                    (secId, index) => {
+
+                        const el =
+                            document.getElementById(
+                                secId
+                            );
+
+                        if (!el) return;
+
+                        el.style.display = 'flex';
+
+                        setTimeout(() => {
+
+                            el.classList.add(
+                                'show'
+                            );
+
+                        }, index * 150);
+
+                    }
+                );
+
+
+                setTimeout(() => {
+
+                    updateStoryProgress();
+
+                }, 1200);
+
+            }, 900);
+
+        }
+
+
+        /* =================================================
+           LETTER
+        ================================================== */
+
+        function openEnvelope() {
+
+            const popup =
+                document.getElementById(
+                    'envelope-invitation'
+                );
+
+            if (popup) {
+
+                popup.classList.add(
+                    'active'
+                );
+
+            }
+
+        }
+
+
+        function closeEnvelope() {
+
+            const popup =
+                document.getElementById(
+                    'envelope-invitation'
+                );
+
+            if (popup) {
+
+                popup.classList.remove(
+                    'active'
+                );
+
+            }
+
+        }
+
+
+        function openLetter() {
+
+            closeEnvelope();
+
+            setTimeout(() => {
+
+                const popup =
+                    document.getElementById(
+                        'letterPopup'
+                    );
+
+                if (popup) {
+
+                    popup.classList.add(
+                        'active'
+                    );
+
+                }
+
+            }, 300);
+
+        }
+
+
+        function closeLetter() {
+
+            const popup =
+                document.getElementById(
+                    'letterPopup'
+                );
+
+            if (popup) {
+
+                popup.classList.remove(
+                    'active'
+                );
+
+            }
+
+        }
+
+
+        /* =================================================
+           BOUQUET
+        ================================================== */
+
+        function showBouquet() {
+
+            const loading =
+                document.getElementById(
+                    'bouquetLoading'
+                );
+
+            if (loading) {
+
+                loading.classList.add(
+                    'active'
+                );
+
+            }
+
+
+            setTimeout(() => {
+
+                if (loading) {
+
+                    loading.classList.remove(
+                        'active'
+                    );
+
+                }
+
+
+                const popup =
+                    document.getElementById(
+                        'bouquetPopup'
+                    );
+
+                if (popup) {
+
+                    popup.classList.add(
+                        'active'
+                    );
+
+                }
+
+            }, 1200);
+
+        }
+
+
+        function closeBouquet() {
+
+            const popup =
+                document.getElementById(
+                    'bouquetPopup'
+                );
+
+            if (popup) {
+
+                popup.classList.remove(
+                    'active'
+                );
+
+            }
+
+        }
+
+
+        /* =================================================
+           HISTORY VIDEO
+        ================================================== */
+
+        function openHistoryVideo() {
+
+            const popup =
+                document.getElementById(
+                    'historyVideoPopup'
+                );
+
+            if (popup) {
+
+                popup.classList.add(
+                    'active'
+                );
+
+            }
+
+        }
+
+
+        function closeHistoryVideo() {
+
+            const popup =
+                document.getElementById(
+                    'historyVideoPopup'
+                );
+
+            const video =
+                document.getElementById(
+                    'historyVideo'
+                );
+
+
+            if (video) {
+
+                video.pause();
+                video.currentTime = 0;
+
+            }
+
+
+            if (popup) {
+
+                popup.classList.remove(
+                    'active'
+                );
+
+            }
+
+        }
+
+
+        /* =================================================
+           CLOSE POPUP WHEN CLICK OUTSIDE
+        ================================================== */
+
+        document.addEventListener(
+            'click',
+            function(event) {
+
+                const popups = [
+                    'letterPopup',
+                    'bouquetPopup',
+                    'envelope-invitation',
+                    'historyVideoPopup'
+                ];
+
+
+                popups.forEach(
+                    function(id) {
+
+                        const popup =
+                            document.getElementById(
+                                id
+                            );
+
+                        if (
+                            popup &&
+                            event.target === popup
+                        ) {
+
+                            popup.classList.remove(
+                                'active'
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+        /* =================================================
+           STORY PROGRESS
+        ================================================== */
+
+        function updateStoryProgress() {
+
+            const sections = [
+
+                'gift-section',
+                'content-section',
+                'support-section',
+                'gallery-section',
+                'interactive-section',
+                'history-section'
+
+            ];
+
+
+            const progressItems =
+                document.querySelectorAll(
+                    '.progress-item'
+                );
+
+
+            let currentIndex = 0;
+
+
+            sections.forEach(
+                function(sectionId, index) {
+
+                    const section =
+                        document.getElementById(
+                            sectionId
+                        );
+
+                    if (!section) return;
+
+
+                    const rect =
+                        section.getBoundingClientRect();
+
+
+                    if (
+                        rect.top <=
+                        window.innerHeight * 0.55
+                    ) {
+
+                        currentIndex = index;
+
+                    }
+
+                }
+            );
+
+
+            progressItems.forEach(
+                function(item, index) {
+
+                    item.classList.toggle(
+                        'active',
+                        index === currentIndex
+                    );
+
+                    item.classList.toggle(
+                        'completed',
+                        index < currentIndex
+                    );
+
+                }
+            );
+
+        }
+
+
+        window.addEventListener(
+            'scroll',
+            updateStoryProgress,
+            { passive: true }
+        );
+
+
+        /* =================================================
+           REVEAL SECTIONS ON SCROLL
+        ================================================== */
+
+        const observer =
+            new IntersectionObserver(
+                function(entries) {
+
+                    entries.forEach(
+                        function(entry) {
+
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                entry.target.classList.add(
+                                    'show'
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+                {
+                    threshold: 0.15
+                }
+            );
+
+
+        document
+            .querySelectorAll(
+                '.section'
+            )
+            .forEach(
+                function(section) {
+
+                    observer.observe(section);
+
+                }
+            );
+
+
+        /* =================================================
+           SMOOTH SCROLL
+        ================================================== */
+
+        document.querySelectorAll(
+            '.progress-item'
+        ).forEach(
+            function(item) {
+
+                item.addEventListener(
+                    'click',
+                    function() {
+
+                        const targetId =
+                            item.dataset.section;
+
+                        const target =
+                            document.getElementById(
+                                targetId
+                            );
+
+                        if (
+                            target &&
+                            target.style.display !==
+                            'none'
+                        ) {
+
+                            target.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+        /* =================================================
+           ESCAPE TO CLOSE POPUPS
+        ================================================== */
+
+        document.addEventListener(
+            'keydown',
+            function(event) {
+
+                if (event.key !== 'Escape') {
+                    return;
+                }
+
+
+                closeLetter();
+                closeBouquet();
+                closeEnvelope();
+                closeHistoryVideo();
+
+            }
+        );
+
+
+        /* =================================================
+           INITIAL STATE
+        ================================================== */
+
+        document.addEventListener(
+            'DOMContentLoaded',
+            function() {
+
+                const hiddenSections =
+                    document.querySelectorAll(
+                        '.hidden-section'
+                    );
+
+
+                hiddenSections.forEach(
+                    function(section) {
+
+                        section.style.display =
+                            'none';
+
+                    }
+                );
+
+
+                const finalSection =
+                    document.getElementById(
+                        'final-section'
+                    );
+
+                if (finalSection) {
+
+                    finalSection.style.display =
+                        'none';
+
+                }
+
+
+                updateStoryProgress();
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
