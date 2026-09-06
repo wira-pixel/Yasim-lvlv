@@ -3043,3 +3043,10 @@ body.letter-typing-open {
 .typing-letter-popup-card .typing-letter-paper {
     overscroll-behavior: contain;
 }
+
+/* Fix posisi envelope di HP */
+@media (max-width: 600px) {
+    .envelope-container {
+        margin-top: 80px !important;
+    }
+}
