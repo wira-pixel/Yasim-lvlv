@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Surprise for You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-body">
+    <div class="container">
+        <!-- Kotak Login -->
+        <div id="login-box" class="card">
+            <h1>Halo Sayang! 🌷</h1>
+            <p>Masukkan kode rahasia yang cuma kamu yang tahu:</p>
+            <input type="password" id="pin" placeholder="••••••">
+            <button type="button" id="btn-login">Buka Kejutan</button>
+            <p id="message" class="error-msg"></p>
+        </div>
+
+        <!-- Halaman Loading -->
+        <div id="loading-box" style="display: none;">
+            <div class="spinner-flower">🌸</div>
+            <p class="loading-text">Sabar ya sayang<span class="dots"></span></p>
+        </div>
+    </div>
+
+    <script>
+        // Hapus sesi saat halaman login dimuat/di-refresh agar kembali ke 
+        sessionStorage.removeItem('isLoggedIn');
+
+        document.getElementById('btn-login').addEventListener('click', function() {
+            const pinValue = document.getElementById('pin').value;
+            
+            // Ganti '123456' dengan PIN Anda
+            if (pinValue === '123456') {
+                sessionStorage.setItem('isLoggedIn', 'true');
+
+                document.getElementById('login-box').style.display = 'none';
+                document.getElementById('loading-box').style.display = 'flex';
+
+                setTimeout(function() {
+                    window.location.href = 'main.html';
+                }, 2500);
+            } else {
+                document.getElementById('message').innerText = 'Yah, kodenya salah. Coba lagi sayang!';
+            }
+        });
+    </script>
+    <!-- Di bagian bawah index.html, sebelum </body> -->
+    <script>
+        // Ini memastikan saat user di halaman login, sesi sebelumnya DIHAPUS
+        window.onload = function() {
+            sessionStorage.removeItem('isLoggedIn');
+        };
+
+        document.getElementById('btn-login').addEventListener('click', function() {
+            // ... (kode logika login Anda tetap sama) ...
+        });
+    </script>
+</body>
+</body>
+</html>
