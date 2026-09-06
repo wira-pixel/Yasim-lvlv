@@ -1216,12 +1216,24 @@
                 );
 
 
-            if (!letterSection) {
+            /*
+             * PERBAIKAN:
+             * Sebelumnya di sini menggunakan
+             * variabel "letterSection" yang tidak ada.
+             */
+
+            if (!messageSection) {
                 return;
             }
 
 
-            const letterObserver =
+            /*
+             * PERBAIKAN:
+             * Nama observer disamakan dengan
+             * observer yang digunakan di bawah.
+             */
+
+            const messageObserver =
                 new IntersectionObserver(
                     function(entries) {
 
@@ -1750,26 +1762,30 @@
                     );
 
                 }
-/* 
- * Pindahkan tombol surat ke halaman
- * A LETTER FOR YOU tanpa mengubah HTML sumber.
- */
-if (letterButton) {
 
-    const letterSectionCard =
-        document.querySelector(
-            '#support-section .letter-section-card'
-        );
 
-    if (letterSectionCard) {
+                /*
+                 * Pindahkan tombol surat ke halaman
+                 * A LETTER FOR YOU tanpa mengubah HTML sumber.
+                 */
 
-        letterSectionCard.appendChild(
-            letterButton
-        );
+                if (letterButton) {
 
-    }
+                    const letterSectionCard =
+                        document.querySelector(
+                            '#support-section .letter-section-card'
+                        );
 
-}
+                    if (letterSectionCard) {
+
+                        letterSectionCard.appendChild(
+                            letterButton
+                        );
+
+                    }
+
+                }
+
 
                 updateStoryProgress();
 
@@ -1788,4 +1804,3 @@ if (letterButton) {
 
 </body>
 </html>
-
