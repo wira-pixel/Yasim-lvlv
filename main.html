@@ -1049,7 +1049,7 @@
 
 
         /* =================================================
-           LETTER
+           LETTER / ENVELOPE
         ================================================== */
 
         function openEnvelope() {
@@ -1059,13 +1059,13 @@
                     'envelope-invitation'
                 );
 
-            if (popup) {
-
-                popup.classList.add(
-                    'active'
-                );
-
+            if (!popup) {
+                return;
             }
+
+            popup.classList.remove('opening');
+
+            popup.classList.add('active');
 
         }
 
@@ -1080,27 +1080,11 @@
             if (popup) {
 
                 popup.classList.remove(
+                    'opening'
+                );
+
+                popup.classList.remove(
                     'active'
-                );
-
-            }
-
-
-            /*
-             * Setelah popup undangan ditutup,
-             * tombol buka surat tetap tersedia
-             * di bagian pesan.
-             */
-
-            const button =
-                document.getElementById(
-                    'messageLetterButton'
-                );
-
-            if (button) {
-
-                button.classList.add(
-                    'visible'
                 );
 
             }
@@ -1110,48 +1094,64 @@
 
         function openLetter() {
 
-            /*
-             * Tutup popup undangan terlebih dahulu.
-             */
-
             const invitation =
                 document.getElementById(
                     'envelope-invitation'
                 );
 
-            if (invitation) {
+            const letterPopup =
+                document.getElementById(
+                    'letterPopup'
+                );
+
+
+            if (!invitation || !letterPopup) {
+                return;
+            }
+
+
+            /*
+             * Mulai animasi membuka amplop
+             * sebelum surat ditampilkan.
+             */
+
+            invitation.classList.add(
+                'opening'
+            );
+
+
+            /*
+             * Tunggu animasi amplop selesai.
+             */
+
+            setTimeout(() => {
 
                 invitation.classList.remove(
                     'active'
                 );
 
-            }
+                invitation.classList.remove(
+                    'opening'
+                );
 
 
-            setTimeout(() => {
+                /*
+                 * Tampilkan surat.
+                 */
 
-                const popup =
-                    document.getElementById(
-                        'letterPopup'
-                    );
-
-                if (popup) {
-
-                    popup.classList.add(
-                        'active'
-                    );
+                letterPopup.classList.add(
+                    'active'
+                );
 
 
-                    /*
-                     * Kunci halaman belakang
-                     * supaya tidak bisa discroll.
-                     */
+                /*
+                 * Kunci halaman belakang
+                 * supaya tidak ikut scroll.
+                 */
 
-                    lockPageScroll();
+                lockPageScroll();
 
-                }
-
-            }, 250);
+            }, 900);
 
         }
 
@@ -1163,6 +1163,7 @@
                     'letterPopup'
                 );
 
+
             if (popup) {
 
                 popup.classList.remove(
@@ -1172,37 +1173,14 @@
             }
 
 
-            /*
-             * Buka kembali scroll halaman.
-             */
-
             unlockPageScroll();
-
-
-            /*
-             * Setelah surat ditutup,
-             * tombol buka surat tetap ada.
-             */
-
-            const button =
-                document.getElementById(
-                    'messageLetterButton'
-                );
-
-            if (button) {
-
-                button.classList.add(
-                    'visible'
-                );
-
-            }
 
         }
 
 
         /* =================================================
            AUTO LETTER INVITATION
-           MUNCUL SAAT SCROLL KE BAGIAN PESAN
+           MUNCUL SAAT SCROLL KE A LETTER FOR YOU
         ================================================== */
 
         let messagePopupShown = false;
@@ -1210,30 +1188,18 @@
 
         function setupMessagePopupObserver() {
 
-            const messageSection =
+            const letterSection =
                 document.getElementById(
                     'support-section'
                 );
 
 
-            /*
-             * PERBAIKAN:
-             * Sebelumnya di sini menggunakan
-             * variabel "letterSection" yang tidak ada.
-             */
-
-            if (!messageSection) {
+            if (!letterSection) {
                 return;
             }
 
 
-            /*
-             * PERBAIKAN:
-             * Nama observer disamakan dengan
-             * observer yang digunakan di bawah.
-             */
-
-            const messageObserver =
+            const letterObserver =
                 new IntersectionObserver(
                     function(entries) {
 
@@ -1279,8 +1245,8 @@
                 );
 
 
-            messageObserver.observe(
-                messageSection
+            letterObserver.observe(
+                letterSection
             );
 
         }
@@ -1290,12 +1256,42 @@
            BOUQUET
         ================================================== */
 
+        let bouquetOpening = false;
+
+
         function showBouquet() {
+
+            /*
+             * Mencegah user menjalankan animasi
+             * berkali-kali ketika sedang loading.
+             */
+
+            if (bouquetOpening) {
+                return;
+            }
+
 
             const loading =
                 document.getElementById(
                     'bouquetLoading'
                 );
+
+            const placeholder =
+                document.querySelector(
+                    '.bouquet-placeholder'
+                );
+
+
+            bouquetOpening = true;
+
+
+            if (placeholder) {
+
+                placeholder.classList.add(
+                    'opening'
+                );
+
+            }
 
 
             if (loading) {
@@ -1318,6 +1314,15 @@
                 }
 
 
+                if (placeholder) {
+
+                    placeholder.classList.remove(
+                        'opening'
+                    );
+
+                }
+
+
                 const popup =
                     document.getElementById(
                         'bouquetPopup'
@@ -1331,6 +1336,9 @@
                     );
 
                 }
+
+
+                bouquetOpening = false;
 
             }, 1200);
 
@@ -1595,6 +1603,7 @@
 
         /* =================================================
            REVEAL SECTIONS ON SCROLL
+           PRIORITAS 4
         ================================================== */
 
         const observer =
@@ -1740,49 +1749,6 @@
 
                     finalSection.style.display =
                         'none';
-
-                }
-
-
-                /*
-                 * Tombol buka surat awalnya
-                 * disembunyikan.
-                 */
-
-                const letterButton =
-                    document.getElementById(
-                        'messageLetterButton'
-                    );
-
-
-                if (letterButton) {
-
-                    letterButton.classList.remove(
-                        'visible'
-                    );
-
-                }
-
-
-                /*
-                 * Pindahkan tombol surat ke halaman
-                 * A LETTER FOR YOU tanpa mengubah HTML sumber.
-                 */
-
-                if (letterButton) {
-
-                    const letterSectionCard =
-                        document.querySelector(
-                            '#support-section .letter-section-card'
-                        );
-
-                    if (letterSectionCard) {
-
-                        letterSectionCard.appendChild(
-                            letterButton
-                        );
-
-                    }
 
                 }
 
