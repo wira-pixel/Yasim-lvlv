@@ -276,28 +276,6 @@
 
             </div>
 
-            <div class="typing-letter" id="typingLetter" aria-live="polite">
-
-                <div class="typing-letter-top">
-                    <span>♡</span>
-                    <span>FOR YOU</span>
-                    <span>♡</span>
-                </div>
-
-                <div class="typing-letter-paper">
-                    <div class="typing-content" id="typingContent"></div>
-                    <span class="typing-cursor" id="typingCursor">|</span>
-                </div>
-
-                <button class="typing-skip" id="typingSkip" type="button" onclick="skipTyping()">
-                    Skip typing →
-                </button>
-
-                <button class="typing-continue" id="typingContinue" type="button" onclick="continueFromLetter()">
-                    Continue →
-                </button>
-
-            </div>
 
         </div>
 
@@ -587,6 +565,55 @@
 
 
     <!-- =====================================================
+         LETTER TYPING POPUP
+    ====================================================== -->
+
+    <div
+        class="popup-overlay typing-letter-popup-overlay"
+        id="typingLetterPopup"
+        aria-hidden="true"
+    >
+
+        <div class="typing-letter-popup-card" role="dialog" aria-modal="true" aria-labelledby="typingLetterTitle">
+
+            <button
+                class="popup-close"
+                type="button"
+                onclick="closeLetterTyping()"
+                aria-label="Close letter"
+            >
+                ×
+            </button>
+
+            <div class="typing-letter" id="typingLetter" aria-live="polite">
+
+                <div class="typing-letter-top" id="typingLetterTitle">
+                    <span>♡</span>
+                    <span>FOR YOU</span>
+                    <span>♡</span>
+                </div>
+
+                <div class="typing-letter-paper">
+                    <div class="typing-content" id="typingContent"></div>
+                    <span class="typing-cursor" id="typingCursor">|</span>
+                </div>
+
+                <button class="typing-skip" id="typingSkip" type="button" onclick="skipTyping()">
+                    Skip typing →
+                </button>
+
+                <button class="typing-continue" id="typingContinue" type="button" onclick="continueFromLetter()">
+                    Continue →
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
          BOUQUET POPUP
     ====================================================== -->
 
@@ -834,26 +861,42 @@
         function openEnvelope() {
             const container = document.querySelector('.envelope-container');
             const envelope = document.querySelector('.envelope');
+            const popup = document.getElementById('typingLetterPopup');
             const letter = document.getElementById('typingLetter');
 
-            if (!container || !envelope || !letter) return;
+            if (!container || !envelope || !popup || !letter) return;
 
             playClickEffect(container);
-
-            if (typingStarted) {
-                letter.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                return;
-            }
-
-            typingStarted = true;
             container.classList.add('envelope-opened');
             envelope.classList.add('opened');
 
+            popup.classList.add('active');
+            popup.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('letter-typing-open');
+
             setTimeout(() => {
                 letter.classList.add('visible');
-                letter.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                startTyping();
-            }, 850);
+                if (!typingStarted) {
+                    typingStarted = true;
+                    startTyping();
+                } else if (!typingFinished) {
+                    startTyping();
+                }
+            }, 250);
+        }
+
+        function closeLetterTyping() {
+            const popup = document.getElementById('typingLetterPopup');
+            if (!popup) return;
+
+            popup.classList.remove('active');
+            popup.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('letter-typing-open');
+
+            if (typingTimer) {
+                clearTimeout(typingTimer);
+                typingTimer = null;
+            }
         }
 
         function startTyping() {
@@ -949,6 +992,7 @@
             if (!gallery) return;
 
             playClickEffect(document.getElementById('typingContinue'));
+            closeLetterTyping();
             gallery.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
@@ -1145,6 +1189,11 @@
             if (historyPopup && event.target === historyPopup) {
                 closeHistoryVideo();
             }
+
+            const letterPopup = document.getElementById('typingLetterPopup');
+            if (letterPopup && event.target === letterPopup) {
+                closeLetterTyping();
+            }
         });
 
 
@@ -1157,6 +1206,7 @@
 
             closeBouquet();
             closeHistoryVideo();
+            closeLetterTyping();
         });
 
 
@@ -1174,9 +1224,15 @@
             const finalSection = document.getElementById('final-section');
             if (finalSection) finalSection.style.display = 'none';
 
+            const typingPopup = document.getElementById('typingLetterPopup');
             const typingLetter = document.getElementById('typingLetter');
             const typingSkip = document.getElementById('typingSkip');
             const typingContinue = document.getElementById('typingContinue');
+
+            if (typingPopup) {
+                typingPopup.classList.remove('active');
+                typingPopup.setAttribute('aria-hidden', 'true');
+            }
 
             if (typingLetter) typingLetter.classList.remove('visible');
             if (typingSkip) typingSkip.style.display = 'none';
