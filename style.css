@@ -467,40 +467,14 @@ button:hover { background: #d81b60; }
     padding: 20px;
 }
 .letter-content {
-    background: linear-gradient(145deg, rgba(48, 18, 30, 0.98), rgba(35, 12, 24, 0.98));
-    color: #fff1f5;
+    background: #ffffff;
+    color: #333333;
     padding: 25px;
     border-radius: 20px;
-    max-width: 520px;
-    width: min(520px, 92vw);
-    max-height: 82vh;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    border: 1px solid rgba(255, 182, 193, 0.28);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.55);
+    max-width: 340px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     text-align: center;
-}
-
-#letterPopup .letter-content p {
-    color: #f8e8ee !important;
-}
-
-#letterPopup .letter-content h2 {
-    color: #ffb6c1 !important;
-}
-
-#letterPopup .letter-content::-webkit-scrollbar {
-    width: 8px;
-}
-
-#letterPopup .letter-content::-webkit-scrollbar-track {
-    background: rgba(255,255,255,0.06);
-    border-radius: 10px;
-}
-
-#letterPopup .letter-content::-webkit-scrollbar-thumb {
-    background: rgba(255,182,193,0.45);
-    border-radius: 10px;
 }
 
 .envelope-popup-overlay {
@@ -1079,34 +1053,78 @@ button:hover { background: #d81b60; }
     }
 }
 
-
 /* =========================================================
-   FINAL SAFE PATCH — SURPRISE PAGE
-   Tidak menghapus atau mengganti style yang sudah ada.
+   CINEMATIC MAIN PAGE — MATCHES THE PROVIDED main.html
+   This block intentionally targets the exact class names
+   used by the HTML supplied by the user.
    ========================================================= */
 
-/* Ambient cinematic background */
-.ambient-glow {
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    background:
+        radial-gradient(circle at 15% 15%, rgba(236,64,122,0.16), transparent 30%),
+        radial-gradient(circle at 85% 80%, rgba(255,182,193,0.10), transparent 30%),
+        linear-gradient(180deg, #120810 0%, #0b050d 45%, #080409 100%);
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* Ambient background */
+.ambient-background {
     position: fixed;
-    width: 320px;
-    height: 320px;
-    border-radius: 50%;
-    filter: blur(90px);
+    inset: 0;
+    overflow: hidden;
     pointer-events: none;
-    z-index: -1;
-    opacity: 0.28;
+    z-index: 0;
 }
 
-.ambient-glow-one {
-    top: -120px;
-    left: -100px;
-    background: rgba(236, 64, 122, 0.45);
+.ambient-glow {
+    position: absolute;
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    filter: blur(95px);
+    opacity: 0.22;
 }
 
-.ambient-glow-two {
-    right: -120px;
-    bottom: -100px;
-    background: rgba(255, 182, 193, 0.35);
+.glow-one {
+    top: -140px;
+    left: -120px;
+    background: rgba(236,64,122,0.65);
+}
+
+.glow-two {
+    right: -140px;
+    top: 35%;
+    background: rgba(255,105,160,0.35);
+}
+
+.glow-three {
+    left: 25%;
+    bottom: -180px;
+    background: rgba(255,182,193,0.28);
+}
+
+/* Keep decorative background behind all sections */
+.falling-petals {
+    z-index: 1 !important;
+}
+
+.section,
+.final-section {
+    z-index: 5 !important;
+}
+
+.card-glass,
+.gallery-section-inner,
+.final-content {
+    position: relative;
+    z-index: 6;
 }
 
 /* Story progress */
@@ -1119,284 +1137,1042 @@ button:hover { background: #d81b60; }
     align-items: center;
     justify-content: center;
     gap: 6px;
+    width: max-content;
+    max-width: calc(100vw - 24px);
     z-index: 9000;
-    pointer-events: none;
-    opacity: 0.85;
+    pointer-events: auto;
+    padding: 8px 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 999px;
+    background: rgba(15,7,13,0.48);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.progress-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    color: rgba(255,255,255,0.45);
+    transition: color 0.3s ease;
+}
+
+.progress-item.active,
+.progress-item.completed {
+    color: #ffdbe3;
 }
 
 .progress-dot {
     width: 7px;
     height: 7px;
+    flex: 0 0 7px;
     border-radius: 50%;
     background: rgba(255,255,255,0.25);
-    transition: all 0.35s ease;
+    transition: all 0.3s ease;
 }
 
-.progress-dot.active {
+.progress-item.active .progress-dot {
     width: 10px;
     height: 10px;
+    flex-basis: 10px;
     background: #ffb6c1;
     box-shadow: 0 0 12px rgba(255,182,193,0.8);
 }
 
-.progress-dot.passed {
+.progress-item.completed .progress-dot {
     background: rgba(255,182,193,0.65);
+}
+
+.progress-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.5px;
 }
 
 .progress-line {
     width: 18px;
     height: 1px;
-    background: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.18);
 }
 
-/* Pastikan section berada di depan efek kelopak */
-.main-body .section,
-.main-body .final-section {
-    z-index: 5 !important;
+/* Main sections */
+.scroll-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
 }
 
-/* Kelopak tetap menjadi background, bukan menutupi tulisan */
-.main-body .falling-petals {
-    z-index: 1 !important;
+.section {
+    min-height: 100vh;
+    width: 100%;
+    padding: 80px 20px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    text-align: center;
 }
 
-.main-body .falling-petals span {
-    pointer-events: none;
+.hidden-section {
+    display: none;
+    opacity: 0;
+    transform: translateY(35px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
 }
 
-/* Opening page */
-.opening-kicker,
-.hero-kicker {
-    font-size: 0.75rem;
+.hidden-section.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Opening */
+.gift-section-main {
+    min-height: 100vh;
+}
+
+.gift-intro-card {
+    width: min(90%, 430px);
+    padding: 38px 28px 30px;
+}
+
+.opening-small-text {
+    font-size: 0.72rem;
     letter-spacing: 3px;
     text-transform: uppercase;
     opacity: 0.65;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .opening-title {
     color: #ffb6c1;
-    font-size: 1.45rem;
-    margin-bottom: 8px;
-}
-
-.opening-subtitle {
-    font-size: 0.85rem;
-    opacity: 0.8;
-}
-
-.hero-title {
-    color: #ffb6c1;
-    font-size: 1.9rem;
-    margin: 10px 0;
+    font-size: clamp(1.45rem, 5vw, 2rem);
+    line-height: 1.3;
+    margin-bottom: 10px;
     text-shadow: 0 0 18px rgba(255,182,193,0.18);
 }
 
-.hero-divider {
-    margin: 8px 0 12px;
+.opening-subtitle {
+    font-size: 0.88rem;
+    opacity: 0.78;
+}
+
+.opening-hint {
+    margin-top: 8px;
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
+    opacity: 0.45;
+}
+
+/* Gift already has the correct detailed styling above. */
+
+/* Message */
+.cinematic-section {
+    text-align: center;
+}
+
+.main-message-card {
+    width: min(90%, 440px);
+    padding: 38px 28px 32px;
+}
+
+.message-top-label,
+.section-eyebrow,
+.final-small-text {
+    font-size: 0.68rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.62;
+}
+
+.message-heart {
+    margin: 12px 0 5px;
     color: #ffb6c1;
-    opacity: 0.8;
+    font-size: 2rem;
+    text-shadow: 0 0 18px rgba(255,182,193,0.4);
 }
 
-.hero-quote {
-    font-size: 0.9rem;
-    font-style: italic;
-    opacity: 0.9;
-    line-height: 1.7;
+.main-title {
+    color: #ffb6c1;
+    font-size: clamp(2rem, 9vw, 3rem);
+    line-height: 1.1;
+    margin: 5px 0 8px;
+    text-shadow: 0 0 25px rgba(255,182,193,0.18);
 }
 
-.hero-proud {
-    margin-top: 14px;
+.main-subtitle {
+    font-size: 0.95rem;
+    letter-spacing: 2px;
+    font-weight: 500;
+    opacity: 0.88;
+}
+
+.title-divider,
+.final-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 18px 0;
+    color: #ffb6c1;
+}
+
+.title-divider span {
+    width: 55px;
+    height: 1px;
+    background: rgba(255,182,193,0.35);
+}
+
+.main-message {
+    font-size: 1.05rem;
+    margin-bottom: 10px;
+}
+
+.main-message-secondary {
+    max-width: 330px;
+    margin: 0 auto;
+    font-size: 0.88rem;
+    line-height: 1.8;
+    opacity: 0.78;
+}
+
+.proud-text {
+    margin-top: 18px;
     color: #ffdbe3;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     letter-spacing: 1px;
 }
 
-/* Tombol buka surat lagi — hanya muncul setelah popup ditutup */
-.message-letter-button {
-    display: none;
-    margin: 24px auto 0;
+.scroll-hint {
+    margin-top: 24px;
+    font-size: 0.7rem;
+    opacity: 0.48;
+    letter-spacing: 1.5px;
+}
+
+.scroll-hint span {
+    margin: 0 6px;
+}
+
+/* The button in this exact HTML must not inherit the old full-width generic button. */
+.primary-button {
+    display: inline-flex;
+    width: auto;
+    min-width: 175px;
     align-items: center;
     justify-content: center;
-    width: auto;
-    min-width: 190px;
-    padding: 11px 18px;
-    background: rgba(236,64,122,0.18);
-    border: 1px solid rgba(255,182,193,0.35);
-    border-radius: 13px;
+    margin-top: 18px;
+    padding: 11px 20px;
+    border: 1px solid rgba(255,182,193,0.28);
+    border-radius: 14px;
+    background: linear-gradient(135deg, #ec407a, #d81b60);
     color: #fff;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+    font-size: 0.84rem;
+    font-weight: 600;
+    box-shadow: 0 8px 24px rgba(236,64,122,0.28);
 }
 
-.message-letter-button.visible {
-    display: inline-flex;
-    animation: letterButtonAppear 0.6s ease forwards;
-}
-
-.message-letter-button:hover {
-    background: rgba(236,64,122,0.32);
+.primary-button:hover {
+    background: linear-gradient(135deg, #f06292, #ec407a);
     transform: translateY(-2px);
 }
 
-/* Tombol surat tidak boleh muncul di halaman YOU DID IT. */
-#content-section .message-letter-button,
-#content-section button[onclick*="openLetter"] {
-    display: none !important;
+.message-letter-button {
+    display: inline-flex;
 }
 
-#support-section .message-letter-button {
-    display: none;
+/* Letter section */
+.letter-section-card,
+.bouquet-section-card,
+.history-section-card {
+    width: min(90%, 440px);
+    padding: 35px 28px;
 }
 
-#support-section .message-letter-button.visible {
-    display: inline-flex !important;
+.section-eyebrow {
+    margin-bottom: 10px;
 }
 
-/* Cegah tampilan buket dan status loading saling menumpuk. */
-#interactive-section #bouquet-initial-view,
-#interactive-section #bouquet-loading,
-#interactive-section #bouquet-reopen-view {
-    width: 100%;
-    text-align: center;
+.section-title {
+    color: #ffb6c1;
+    font-size: clamp(1.35rem, 5vw, 1.8rem);
+    line-height: 1.35;
+    margin-bottom: 12px;
+    text-shadow: 0 0 18px rgba(255,182,193,0.12);
 }
 
-#interactive-section #bouquet-loading {
-    min-height: 130px;
-    box-sizing: border-box;
-}
-
-#interactive-section #bouquet-loading .spinner-flower {
-    display: block;
+.section-description {
+    font-size: 0.88rem;
+    line-height: 1.8;
+    opacity: 0.76;
+    max-width: 340px;
     margin: 0 auto;
 }
 
-#interactive-section #loading-status-text {
-    display: block;
-    margin: 15px auto 0;
+/* Envelope */
+.envelope-container {
+    width: 180px;
+    margin: 28px auto 0;
+    cursor: pointer;
+    user-select: none;
 }
 
-@keyframes letterButtonAppear {
-    0% { opacity: 0; transform: translateY(15px) scale(0.95); }
-    100% { opacity: 1; transform: translateY(0) scale(1); }
+.envelope {
+    position: relative;
+    width: 160px;
+    height: 105px;
+    margin: 0 auto;
+    filter: drop-shadow(0 12px 20px rgba(0,0,0,0.35));
+    transition: transform 0.35s ease;
 }
 
-/* Kunci halaman ketika popup terbuka */
-body.popup-open {
-    overflow: hidden !important;
+.envelope-container:hover .envelope {
+    transform: translateY(-5px) rotate(-1deg);
 }
 
-html:has(body.popup-open) {
-    overflow: hidden !important;
+.envelope-back,
+.envelope-front,
+.envelope-flap {
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
 }
 
-/* Surat tetap bisa discroll jika isinya panjang */
-#letterPopup {
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+.envelope-back {
+    background: #f6c6d2;
 }
 
-#letterPopup .letter-content {
-    max-height: 85vh;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+.envelope-paper {
+    position: absolute;
+    width: 125px;
+    height: 80px;
+    left: 17px;
+    top: -24px;
+    background: #fff;
+    color: #ec407a;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.4s ease;
+    z-index: 2;
 }
 
-/* Ending section cinematic */
-.ending-section {
-    min-height: 100vh;
+.envelope-front {
+    background: linear-gradient(145deg, #ec407a, #c2185b);
+    clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 100%, 0 100%);
+    z-index: 3;
 }
 
-.ending-card {
-    width: 90%;
-    max-width: 360px;
-    padding: 38px 26px;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255,182,193,0.2);
-    border-radius: 30px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.45);
-    text-align: center;
+.envelope-flap {
+    background: #f06292;
+    clip-path: polygon(0 0, 100% 0, 50% 58%);
+    transform-origin: top center;
+    z-index: 4;
 }
 
-.ending-heart {
-    font-size: 50px;
-    color: #ffb6c1;
-    margin-bottom: 10px;
-    animation: historyFloat 3s ease-in-out infinite;
+.envelope-seal {
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    color: #d81b60;
+    z-index: 5;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
 }
 
-.ending-small-title {
-    font-size: 0.7rem;
-    letter-spacing: 3px;
-    opacity: 0.6;
-    margin-bottom: 10px;
-}
-
-.ending-card h2 {
-    color: #ffb6c1;
-    font-size: 1.7rem;
-    margin-bottom: 15px;
-}
-
-.ending-description {
-    font-size: 0.9rem;
-    line-height: 1.8;
-    opacity: 0.85;
-}
-
-.ending-divider {
-    margin: 20px 0;
-    color: #ffb6c1;
-    opacity: 0.8;
-}
-
-.ending-final {
-    font-size: 1rem;
-    color: #fff;
-    font-weight: 600;
-}
-
-.ending-signature {
-    margin-top: 8px;
-    font-size: 0.78rem;
+.envelope-text {
+    margin-top: 15px;
+    font-size: 0.72rem;
     opacity: 0.6;
     letter-spacing: 1px;
 }
 
+/* Gallery */
+.gallery-section-inner {
+    width: min(100%, 700px);
+    text-align: center;
+}
+
+.gallery-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    margin-top: 28px;
+}
+
+.polaroid {
+    width: min(82vw, 290px);
+    padding: 12px 12px 25px;
+    background: #fff;
+    border-radius: 2px;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.35);
+}
+
+.polaroid-one { transform: rotate(-3deg); }
+.polaroid-two { transform: rotate(2.5deg); }
+.polaroid-three { transform: rotate(-1.5deg); }
+
+.polaroid-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #eee;
+}
+
+.polaroid-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.polaroid-caption {
+    color: #333;
+    font-family: 'Handwriting', 'Segoe Print', cursive;
+    font-size: 0.78rem;
+    margin-top: 13px;
+}
+
+.gallery-bottom-text {
+    margin-top: 30px;
+    font-size: 0.72rem;
+    opacity: 0.45;
+    letter-spacing: 1px;
+}
+
+/* Bouquet */
+.bouquet-delivery-area {
+    margin-top: 24px;
+}
+
+.bouquet-placeholder {
+    cursor: pointer;
+    padding: 18px 12px;
+    border-radius: 18px;
+    border: 1px solid rgba(255,182,193,0.14);
+    background: rgba(255,255,255,0.035);
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.bouquet-placeholder:hover {
+    transform: translateY(-4px);
+    background: rgba(255,255,255,0.07);
+}
+
+.bouquet-icon {
+    font-size: 64px;
+    line-height: 1;
+    animation: floatBouquet 3s ease-in-out infinite;
+}
+
+.bouquet-delivery-text {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.bouquet-click-hint {
+    margin-top: 5px;
+    font-size: 0.68rem;
+    opacity: 0.5;
+}
+
+.bouquet-loading {
+    display: none;
+    padding: 28px 10px;
+}
+
+.bouquet-loading.active {
+    display: block;
+}
+
+.loading-flower {
+    font-size: 44px;
+    animation: spin 1.5s linear infinite;
+}
+
+.bouquet-loading p {
+    margin-top: 12px;
+    color: #ffb6c1;
+    font-size: 0.82rem;
+    animation: pulseText 1s infinite alternate;
+}
+
+/* Popup system — exact class names in provided HTML */
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0,0,0,0.78);
+    backdrop-filter: blur(9px);
+    -webkit-backdrop-filter: blur(9px);
+    z-index: 99999;
+    opacity: 0;
+    overflow-y: auto;
+}
+
+.popup-overlay.active {
+    display: flex;
+    animation: popupFadeIn 0.3s ease forwards;
+}
+
+@keyframes popupFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.popup-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(236,64,122,0.9);
+    color: #fff;
+    font-size: 22px;
+    line-height: 1;
+    z-index: 5;
+}
+
+.letter-popup-card,
+.bouquet-popup-card,
+.invitation-card,
+.history-video-popup-card {
+    position: relative;
+    width: min(100%, 420px);
+    max-height: 88vh;
+    overflow-y: auto;
+    background: rgba(38,9,20,0.97);
+    border: 1px solid rgba(255,182,193,0.22);
+    border-radius: 26px;
+    padding: 30px 25px 25px;
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.65);
+    transform: translateY(12px) scale(0.96);
+    animation: popupCardIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275) forwards;
+}
+
+@keyframes popupCardIn {
+    to { transform: translateY(0) scale(1); }
+}
+
+.letter-header,
+.bouquet-popup-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    color: #ffb6c1;
+}
+
+.letter-header h2,
+.bouquet-popup-header h2 {
+    margin: 0;
+    font-size: 1.35rem;
+}
+
+.letter-content {
+    color: #eee;
+    text-align: left;
+    font-size: 0.88rem;
+    line-height: 1.8;
+}
+
+.letter-content p {
+    margin-bottom: 14px;
+}
+
+.letter-signature {
+    text-align: center;
+    color: #ffdbe3;
+    margin-top: 20px;
+}
+
+#letterPopup .letter-popup-card {
+    max-height: 88vh;
+}
+
+#letterPopup .letter-content {
+    max-height: 65vh;
+    overflow-y: auto;
+    padding-right: 5px;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Bouquet popup */
+.bouquet-popup-card {
+    max-width: 430px;
+}
+
+.bouquet-photo-wrapper {
+    width: 100%;
+    max-height: 58vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.03);
+}
+
+.bouquet-photo {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 58vh;
+    object-fit: contain;
+    border-radius: 15px;
+}
+
+.bouquet-popup-text {
+    margin-top: 15px;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    opacity: 0.88;
+}
+
+/* Invitation popup */
+.invitation-card {
+    max-width: 390px;
+}
+
+.invitation-decoration {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.invitation-card h2 {
+    color: #ffb6c1;
+    font-size: 1.45rem;
+    margin-bottom: 10px;
+}
+
+.invitation-card p {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    opacity: 0.8;
+}
+
+/* History */
+.history-ending-text {
+    margin-top: 20px;
+    font-size: 0.75rem;
+    line-height: 1.7;
+    opacity: 0.5;
+}
+
+.history-video-container {
+    margin-top: 22px;
+    cursor: pointer;
+}
+
+.history-video-preview {
+    width: 100%;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    border-radius: 18px;
+    border: 1px solid rgba(255,182,193,0.18);
+    background:
+        linear-gradient(rgba(20,5,12,0.35), rgba(20,5,12,0.7)),
+        radial-gradient(circle, rgba(236,64,122,0.25), transparent 65%);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.history-video-container:hover .history-video-preview {
+    transform: translateY(-3px);
+    border-color: rgba(255,182,193,0.4);
+}
+
+.history-play-button {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 3px;
+    background: #ec407a;
+    box-shadow: 0 8px 25px rgba(236,64,122,0.35);
+}
+
+.history-video-label {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    opacity: 0.75;
+}
+
+.history-video-popup-card {
+    max-width: 650px;
+}
+
+.video-wrapper {
+    width: 100%;
+    background: #000;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.video-wrapper video {
+    display: block;
+    width: 100%;
+    max-height: 72vh;
+    background: #000;
+}
+
+/* Final */
+.final-section {
+    min-height: 100vh;
+    padding: 80px 20px;
+}
+
+.final-content {
+    width: min(90%, 470px);
+    text-align: center;
+}
+
+.final-sparkle {
+    font-size: 34px;
+    margin-bottom: 14px;
+}
+
+.final-title {
+    margin: 12px 0 0;
+    color: #ffb6c1;
+    font-size: clamp(2rem, 8vw, 3rem);
+    text-shadow: 0 0 25px rgba(255,182,193,0.18);
+}
+
+.final-divider {
+    font-size: 1.5rem;
+}
+
+.final-message {
+    max-width: 360px;
+    margin: 0 auto 12px;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    opacity: 0.78;
+}
+
+.final-message-emphasis {
+    margin-top: 22px;
+    color: #ffdbe3;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.final-heart {
+    margin: 18px 0 12px;
+    color: #ffb6c1;
+    font-size: 45px;
+    animation: heartPulse 2s ease-in-out infinite;
+    text-shadow: 0 0 20px rgba(255,182,193,0.45);
+}
+
+@keyframes heartPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+
+.final-end {
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    opacity: 0.45;
+}
+
+/* Popup scroll lock */
+body.letter-open {
+    overflow: hidden !important;
+}
+
+body.letter-open .popup-overlay.active {
+    overscroll-behavior: contain;
+}
+
+/* Do not let generic global button/input rules distort the main page. */
+.section button {
+    font-family: inherit;
+}
+
+/* Mobile */
 @media screen and (max-width: 600px) {
     .story-progress {
-        top: 12px;
-        gap: 4px;
+        top: 10px;
+        gap: 3px;
+        padding: 6px 8px;
+    }
+
+    .progress-label {
+        display: none;
     }
 
     .progress-line {
-        width: 10px;
+        width: 9px;
     }
 
-    .message-letter-button {
-        margin-top: 20px;
-        min-width: 180px;
+    .section {
+        padding: 70px 12px 35px;
+    }
+
+    .gift-intro-card,
+    .main-message-card,
+    .letter-section-card,
+    .bouquet-section-card,
+    .history-section-card {
+        width: 94%;
+        padding: 30px 20px;
+    }
+
+    .gift-box {
+        transform: scale(0.9);
+    }
+
+    .gift-box.opened {
+        transform: scale(0.9);
+    }
+
+    .letter-popup-card,
+    .bouquet-popup-card,
+    .invitation-card,
+    .history-video-popup-card {
+        width: 94%;
+        max-height: 90vh;
+        padding: 28px 18px 20px;
+        border-radius: 22px;
     }
 
     #letterPopup .letter-content {
-        max-height: 82vh;
-        width: 90%;
-        padding: 22px 18px;
+        max-height: 67vh;
     }
 
-    .ending-card {
-        width: 95%;
-        padding: 32px 20px;
+    .bouquet-photo-wrapper {
+        max-height: 55vh;
+    }
+
+    .bouquet-photo {
+        max-width: 100%;
+        max-height: 55vh;
+    }
+
+    .final-content {
+        width: 94%;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .ambient-glow,
-    .falling-petals,
-    .gift-box,
-    .message-letter-button,
-    .ending-heart {
-        animation: none !important;
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+
+/* =========================================================
+   FINAL PATCH — 4 PERBAIKAN
+   HTML TETAP. PATCH INI HANYA MENIMPA STYLE YANG BERMASALAH.
+========================================================= */
+
+/* 1. BACKGROUND SURAT — jangan putih */
+#letterPopup .letter-popup-card {
+    background: linear-gradient(145deg, rgba(45, 10, 24, 0.98), rgba(30, 7, 17, 0.98)) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 182, 193, 0.28) !important;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.70) !important;
+}
+
+#letterPopup .letter-content {
+    background: transparent !important;
+    color: #f4e9ed !important;
+    text-align: left !important;
+    max-height: 65vh;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 182, 193, 0.55) rgba(255,255,255,0.06);
+}
+
+#letterPopup .letter-content p {
+    color: #f4e9ed !important;
+}
+
+#letterPopup .letter-signature {
+    color: #ffd0dc !important;
+}
+
+#letterPopup .letter-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+#letterPopup .letter-content::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.06);
+    border-radius: 10px;
+}
+
+#letterPopup .letter-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 182, 193, 0.55);
+    border-radius: 10px;
+}
+
+/* 2. TOMBOL SURAT JANGAN MUNCUL DI HALAMAN PERTAMA.
+   JS akan memindahkannya ke support-section setelah popup ditutup. */
+#content-section #messageLetterButton {
+    display: none !important;
+}
+
+#support-section #messageLetterButton {
+    display: none !important;
+}
+
+#support-section #messageLetterButton.visible {
+    display: inline-flex !important;
+}
+
+/* Tampilan tombol setelah dipindahkan ke halaman surat */
+#support-section #messageLetterButton {
+    margin: 25px auto 0;
+    min-width: 180px;
+    width: auto;
+}
+
+/* 3. Popup undangan tidak boleh menghalangi scroll sebelum waktunya */
+#envelope-invitation {
+    pointer-events: none;
+}
+
+#envelope-invitation.active {
+    pointer-events: auto;
+}
+
+/* 4. BUG BUKET — saat loading aktif, placeholder disembunyikan
+   supaya "Receive your bouquet" tidak bertabrakan dengan loading. */
+.bouquet-delivery-area:has(.bouquet-loading.active) .bouquet-placeholder {
+    display: none !important;
+}
+
+.bouquet-delivery-area {
+    position: relative;
+    width: 100%;
+    min-height: 190px;
+}
+
+.bouquet-placeholder {
+    width: min(100%, 260px);
+    margin: 0 auto;
+}
+
+.bouquet-loading {
+    width: 100%;
+    min-height: 170px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.bouquet-loading.active {
+    display: flex !important;
+}
+
+.loading-flower {
+    line-height: 1;
+}
+
+.bouquet-loading p {
+    margin: 14px 0 0;
+}
+
+/* Popup buket: foto jangan terpotong / terdorong keluar card */
+#bouquetPopup .bouquet-popup-card {
+    width: min(92vw, 500px);
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 30px 22px 24px;
+}
+
+#bouquetPopup .bouquet-photo-wrapper {
+    width: 100%;
+    max-width: 100%;
+    max-height: 62vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: rgba(255,255,255,0.025);
+}
+
+#bouquetPopup .bouquet-photo {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 62vh;
+    object-fit: contain;
+    margin: 0 auto;
+    border-radius: 14px;
+}
+
+/* Popup surat juga aman di layar kecil */
+#letterPopup .letter-popup-card {
+    width: min(92vw, 525px);
+    max-height: 90vh;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 600px) {
+    #letterPopup .letter-popup-card {
+        width: 94vw;
+        max-height: 88vh;
+        padding: 28px 18px 20px;
+    }
+
+    #letterPopup .letter-content {
+        max-height: 66vh;
+    }
+
+    #bouquetPopup .bouquet-popup-card {
+        width: 94vw;
+        max-height: 88vh;
+        padding: 28px 16px 20px;
+    }
+
+    #bouquetPopup .bouquet-photo-wrapper,
+    #bouquetPopup .bouquet-photo {
+        max-height: 56vh;
+    }
+
+    .bouquet-delivery-area {
+        min-height: 175px;
     }
 }
