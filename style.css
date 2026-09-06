@@ -2309,3 +2309,626 @@ body.letter-open .popup-overlay.active {
         max-height: 56vh;
     }
 }
+
+
+/* =========================================================
+   NEW EXPERIENCE PATCH
+   1. Typing animation surat
+   2. Final cinematic
+   3. Mobile polish
+   4. Gallery storytelling
+   5. Secret message
+   6. Interactive progress
+   7. Micro-animation
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   1. TYPING LETTER — INLINE, BUKAN POPUP
+   --------------------------------------------------------- */
+
+.envelope-container {
+    transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.envelope-container.pressed {
+    transform: scale(0.96);
+}
+
+.envelope-container.envelope-opened {
+    pointer-events: none;
+}
+
+.envelope.opened {
+    transform: translateY(-3px);
+}
+
+.envelope.opened .envelope-flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
+
+.envelope.opened .envelope-seal {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7);
+}
+
+.envelope.opened .envelope-paper {
+    transform: translateY(-38px);
+}
+
+.envelope-flap {
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-origin: top center;
+}
+
+.envelope-seal {
+    transition: opacity 0.3s ease, transform 0.4s ease;
+}
+
+.envelope-paper {
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.typing-letter {
+    width: min(100%, 410px);
+    margin: 0 auto;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(25px) scale(0.97);
+    transition: max-height 0.9s ease, opacity 0.7s ease, transform 0.7s ease, margin-top 0.7s ease;
+    margin-top: 0;
+}
+
+.typing-letter.visible {
+    max-height: 1200px;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    margin-top: 30px;
+}
+
+.typing-letter-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    color: #ffb6c1;
+    font-size: 0.68rem;
+    letter-spacing: 3px;
+}
+
+.typing-letter-paper {
+    position: relative;
+    width: 100%;
+    padding: 28px 24px 26px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 182, 193, 0.18);
+    background:
+        linear-gradient(145deg, rgba(62, 20, 39, 0.96), rgba(31, 10, 20, 0.98));
+    box-shadow:
+        0 20px 45px rgba(0,0,0,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+    text-align: left;
+}
+
+.typing-content {
+    color: #f8edf1;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.86rem;
+    line-height: 1.9;
+    min-height: 80px;
+}
+
+.typing-content p {
+    margin: 0 0 16px;
+}
+
+.typing-content p:first-child {
+    color: #ffb6c8;
+    font-weight: 600;
+}
+
+.typing-content p:last-child {
+    margin-bottom: 0;
+    text-align: center;
+    color: #ffb6c8;
+    font-weight: 600;
+}
+
+.typing-cursor {
+    display: inline;
+    margin-left: 2px;
+    color: #ffb6c1;
+    font-weight: 600;
+    animation: typingCursorBlink 0.75s step-end infinite;
+}
+
+@keyframes typingCursorBlink {
+    0%, 45% { opacity: 1; }
+    46%, 100% { opacity: 0; }
+}
+
+.typing-skip,
+.typing-continue {
+    display: none;
+    width: auto;
+    margin: 16px auto 0;
+    padding: 9px 17px;
+    border: 1px solid rgba(255,182,193,0.2);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.045);
+    color: #ffdbe3;
+    font-size: 0.72rem;
+    font-weight: 500;
+}
+
+.typing-skip:hover,
+.typing-continue:hover {
+    background: rgba(236,64,122,0.2);
+    transform: translateY(-2px);
+}
+
+.typing-continue.visible {
+    display: inline-flex;
+    animation: continueAppear 0.6s ease both;
+}
+
+@keyframes continueAppear {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.typing-letter.completed .typing-letter-paper {
+    box-shadow:
+        0 20px 45px rgba(0,0,0,0.35),
+        0 0 30px rgba(255,182,193,0.06),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+/* ---------------------------------------------------------
+   2. FINAL — CINEMATIC CLIMAX
+   --------------------------------------------------------- */
+
+#final-section {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 50% 45%, rgba(236,64,122,0.16), transparent 24%),
+        radial-gradient(circle at 20% 80%, rgba(255,182,193,0.07), transparent 28%),
+        linear-gradient(180deg, rgba(18,8,16,0) 0%, rgba(4,2,6,0.48) 100%);
+}
+
+#final-section::before,
+#final-section::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+#final-section::before {
+    width: 260px;
+    height: 260px;
+    top: 18%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255,105,160,0.10);
+    filter: blur(80px);
+    animation: finalGlow 5s ease-in-out infinite alternate;
+}
+
+#final-section::after {
+    width: 120px;
+    height: 120px;
+    top: 28%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid rgba(255,182,193,0.07);
+    box-shadow: 0 0 70px rgba(255,182,193,0.08);
+    animation: finalHalo 4s ease-in-out infinite;
+}
+
+@keyframes finalGlow {
+    from { opacity: 0.45; transform: translateX(-50%) scale(0.9); }
+    to { opacity: 1; transform: translateX(-50%) scale(1.2); }
+}
+
+@keyframes finalHalo {
+    0%, 100% { transform: translateX(-50%) scale(0.8); opacity: 0.25; }
+    50% { transform: translateX(-50%) scale(1.35); opacity: 0.75; }
+}
+
+.final-content {
+    position: relative;
+    z-index: 3;
+    animation: finalContentReveal 1.4s cubic-bezier(0.2,0.8,0.2,1) both;
+}
+
+@keyframes finalContentReveal {
+    from { opacity: 0; transform: translateY(35px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.final-sparkle {
+    animation: finalSparkle 2.5s ease-in-out infinite;
+    text-shadow: 0 0 25px rgba(255,182,193,0.55);
+}
+
+@keyframes finalSparkle {
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.7; }
+    50% { transform: scale(1.18) rotate(8deg); opacity: 1; }
+}
+
+.final-title {
+    letter-spacing: 0.5px;
+    animation: finalTitleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes finalTitleGlow {
+    from { text-shadow: 0 0 20px rgba(255,182,193,0.16); }
+    to { text-shadow: 0 0 35px rgba(255,182,193,0.38); }
+}
+
+.final-divider {
+    color: #ffb6c1;
+    margin: 20px 0;
+}
+
+.final-message-emphasis {
+    font-size: clamp(1rem, 4vw, 1.18rem);
+    text-shadow: 0 0 18px rgba(255,182,193,0.18);
+}
+
+.final-heart {
+    animation: finalHeartBeat 1.8s ease-in-out infinite;
+}
+
+@keyframes finalHeartBeat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.15); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.08); }
+    60% { transform: scale(1); }
+}
+
+/* ---------------------------------------------------------
+   3. GALLERY STORYTELLING
+   --------------------------------------------------------- */
+
+.gallery-container .polaroid {
+    opacity: 0;
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.35s ease;
+}
+
+#gallery-section.show .polaroid-one {
+    animation: memoryOne 0.9s 0.1s ease forwards;
+}
+
+#gallery-section.show .polaroid-two {
+    animation: memoryTwo 0.9s 0.35s ease forwards;
+}
+
+#gallery-section.show .polaroid-three {
+    animation: memoryThree 0.9s 0.6s ease forwards;
+}
+
+@keyframes memoryOne {
+    from { opacity: 0; transform: translateX(-35px) rotate(-8deg); }
+    to { opacity: 1; transform: rotate(-3deg); }
+}
+
+@keyframes memoryTwo {
+    from { opacity: 0; transform: translateX(35px) rotate(8deg); }
+    to { opacity: 1; transform: rotate(2.5deg); }
+}
+
+@keyframes memoryThree {
+    from { opacity: 0; transform: translateY(35px) rotate(-7deg); }
+    to { opacity: 1; transform: rotate(-1.5deg); }
+}
+
+.polaroid:hover {
+    box-shadow: 0 18px 38px rgba(0,0,0,0.48);
+    z-index: 4;
+}
+
+.polaroid-image {
+    position: relative;
+}
+
+.polaroid-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.08), transparent 45%, rgba(236,64,122,0.06));
+    pointer-events: none;
+}
+
+.polaroid-caption {
+    position: relative;
+    min-height: 20px;
+}
+
+.gallery-bottom-text {
+    animation: storyHint 3s ease-in-out infinite;
+}
+
+@keyframes storyHint {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.75; }
+}
+
+/* ---------------------------------------------------------
+   4. INTERACTIVE PROGRESS
+   --------------------------------------------------------- */
+
+.progress-item {
+    position: relative;
+    padding: 3px 1px;
+    user-select: none;
+}
+
+.progress-item:hover {
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.progress-item:active {
+    transform: scale(0.9);
+}
+
+.progress-item.completed .progress-dot::after {
+    content: "✓";
+    position: absolute;
+    font-size: 6px;
+    line-height: 10px;
+    color: #3b1726;
+}
+
+.progress-dot {
+    position: relative;
+}
+
+.progress-line {
+    transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+
+.progress-item.completed + .progress-line {
+    background: rgba(255,182,193,0.55);
+    box-shadow: 0 0 7px rgba(255,182,193,0.18);
+}
+
+/* ---------------------------------------------------------
+   5. SECRET MESSAGE
+   --------------------------------------------------------- */
+
+.secret-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    margin: 30px auto 0;
+    padding: 9px 17px;
+    border: 1px solid rgba(255,182,193,0.16);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.025);
+    color: rgba(255,219,227,0.68);
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+
+.secret-trigger:hover {
+    background: rgba(236,64,122,0.12);
+    color: #ffdbe3;
+    transform: translateY(-2px);
+}
+
+.secret-trigger:disabled {
+    cursor: default;
+}
+
+.secret-message {
+    max-width: 390px;
+    margin: 0 auto;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: max-height 0.9s ease, opacity 0.7s ease, transform 0.7s ease, margin-top 0.7s ease;
+}
+
+.secret-message.revealed {
+    max-height: 260px;
+    margin-top: 22px;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.secret-message p {
+    font-size: 0.78rem;
+    line-height: 1.85;
+    opacity: 0.68;
+}
+
+.secret-message strong {
+    display: block;
+    margin-top: 12px;
+    color: #ffdbe3;
+    font-size: 0.82rem;
+    font-weight: 500;
+}
+
+.secret-sparkle {
+    margin-bottom: 8px;
+    color: #ffb6c1;
+    animation: secretTwinkle 1.8s ease-in-out infinite;
+}
+
+@keyframes secretTwinkle {
+    0%, 100% { transform: scale(1); opacity: 0.55; }
+    50% { transform: scale(1.2); opacity: 1; }
+}
+
+/* ---------------------------------------------------------
+   6. MICRO-ANIMATION CLICK
+   --------------------------------------------------------- */
+
+.micro-click {
+    animation: microClick 0.5s cubic-bezier(0.2,0.8,0.2,1);
+}
+
+@keyframes microClick {
+    0% { transform: scale(1); }
+    35% { transform: scale(0.94); }
+    70% { transform: scale(1.025); }
+    100% { transform: scale(1); }
+}
+
+.bouquet-placeholder.pressed,
+.history-video-container.pressed {
+    transform: scale(0.97);
+}
+
+/* ---------------------------------------------------------
+   7. MOBILE POLISH
+   --------------------------------------------------------- */
+
+@media screen and (max-width: 600px) {
+    .story-progress {
+        width: calc(100vw - 18px);
+        max-width: calc(100vw - 18px);
+        gap: 2px;
+        padding: 6px 7px;
+        justify-content: space-between;
+    }
+
+    .progress-item {
+        flex: 0 0 auto;
+    }
+
+    .progress-line {
+        flex: 1 1 auto;
+        min-width: 5px;
+        width: auto;
+        max-width: 13px;
+    }
+
+    .progress-dot {
+        width: 6px;
+        height: 6px;
+        flex-basis: 6px;
+    }
+
+    .progress-item.active .progress-dot {
+        width: 9px;
+        height: 9px;
+        flex-basis: 9px;
+    }
+
+    .section {
+        min-height: 100svh;
+        padding: 76px 10px 35px;
+    }
+
+    .gift-intro-card,
+    .main-message-card,
+    .letter-section-card,
+    .bouquet-section-card,
+    .history-section-card {
+        width: 94%;
+        max-width: 440px;
+        padding: 28px 18px;
+    }
+
+    .opening-title {
+        font-size: 1.55rem;
+    }
+
+    .main-title {
+        font-size: clamp(2rem, 13vw, 2.8rem);
+    }
+
+    .main-subtitle {
+        font-size: 0.82rem;
+        letter-spacing: 1.5px;
+    }
+
+    .main-message-secondary,
+    .section-description,
+    .final-message {
+        font-size: 0.82rem;
+        line-height: 1.85;
+    }
+
+    .envelope-container {
+        margin-top: 25px;
+    }
+
+    .typing-letter.visible {
+        margin-top: 25px;
+    }
+
+    .typing-letter-paper {
+        padding: 23px 18px;
+        border-radius: 16px;
+    }
+
+    .typing-content {
+        font-size: 0.79rem;
+        line-height: 1.85;
+    }
+
+    .typing-skip,
+    .typing-continue {
+        font-size: 0.68rem;
+    }
+
+    .gallery-container {
+        gap: 24px;
+        margin-top: 22px;
+    }
+
+    .polaroid {
+        width: min(82vw, 285px);
+    }
+
+    #final-section {
+        padding: 70px 15px 45px;
+    }
+
+    .final-content {
+        width: 94%;
+    }
+
+    .final-title {
+        font-size: clamp(2rem, 11vw, 2.7rem);
+        line-height: 1.15;
+    }
+
+    .final-sparkle {
+        font-size: 28px;
+    }
+
+    .final-heart {
+        font-size: 40px;
+    }
+
+    .secret-trigger {
+        margin-top: 26px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .typing-cursor,
+    .final-sparkle,
+    .final-heart,
+    .final-title,
+    .gallery-bottom-text,
+    .secret-sparkle {
+        animation: none !important;
+    }
+}
