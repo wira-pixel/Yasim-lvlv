@@ -7,11 +7,13 @@
 
     <link rel="stylesheet" href="style.css?v=4">
 
-    <script>
-        if (sessionStorage.getItem('isLoggedIn') !== 'true') {
-            window.location.replace('index.html');
-        }
-    </script>
+ <script>
+    if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+        window.location.replace('index.html');
+    } else {
+        sessionStorage.removeItem('isLoggedIn');
+    }
+</script>
 </head>
 
 <body>
@@ -241,7 +243,9 @@
             <h2 class="section-title">
                Aku punya surat nih buat kamu
             </h2>
+<p class="section-description">
 
+</p>
             <div
                 class="envelope-container"
                 onclick="openEnvelope()"
