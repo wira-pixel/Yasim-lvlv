@@ -12,6 +12,44 @@
             window.location.replace('index.html');
         }
     </script>
+
+    <!-- =====================================================
+         TAMBAHAN KECIL:
+         BUNGA JATUH SELALU DI BELAKANG KONTEN
+    ====================================================== -->
+
+    <style>
+        .falling-petals {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none !important;
+            z-index: 0 !important;
+            overflow: hidden;
+        }
+
+        .falling-petals span {
+            pointer-events: none !important;
+        }
+
+        .section,
+        .story-progress {
+            position: relative;
+            z-index: 2;
+        }
+
+        #explosion-container {
+            position: fixed;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .popup-overlay {
+            z-index: 9999 !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -20,40 +58,43 @@
          AMBIENT BACKGROUND
     ====================================================== -->
 
-  <div class="ambient-background">
-    <div class="ambient-glow glow-one"></div>
-    <div class="ambient-glow glow-two"></div>
-    <div class="ambient-glow glow-three"></div>
-</div>
+    <div class="ambient-background">
+        <div class="ambient-glow glow-one"></div>
+        <div class="ambient-glow glow-two"></div>
+        <div class="ambient-glow glow-three"></div>
+    </div>
 
-<!-- =====================================================
-     FALLING PETALS / HEARTS / SPARKLES
+
+    <!-- =====================================================
+         FALLING PETALS / HEARTS / SPARKLES
 ====================================================== -->
 
-<div class="falling-petals">
-    <span>🌸</span>
-    <span>🌷</span>
-    <span>🌸</span>
-    <span>✨</span>
-    <span>🌸</span>
-    <span>🌷</span>
-    <span>💖</span>
-    <span>🌸</span>
-    <span>🤍</span>
-    <span>🌸</span>
-    <span>✨</span>
-    <span>💗</span>
-    <span>🌷</span>
-    <span>🌸</span>
-    <span>💕</span>
-    <span>✨</span>
-    <span>🌺</span>
-    <span>🤍</span>
-    <span>🌸</span>
-    <span>💖</span>
-</div>
+    <div class="falling-petals">
+        <span>🌸</span>
+        <span>🌷</span>
+        <span>🌸</span>
+        <span>✨</span>
+        <span>🌸</span>
+        <span>🌷</span>
+        <span>💖</span>
+        <span>🌸</span>
+        <span>🤍</span>
+        <span>🌸</span>
+        <span>✨</span>
+        <span>💗</span>
+        <span>🌷</span>
+        <span>🌸</span>
+        <span>💕</span>
+        <span>✨</span>
+        <span>🌺</span>
+        <span>🤍</span>
+        <span>🌸</span>
+        <span>💖</span>
+    </div>
 
-<div id="explosion-container"></div>
+
+    <div id="explosion-container"></div>
+
 
     <!-- =====================================================
          PROGRESS INDICATOR
@@ -211,16 +252,6 @@
                 <span>↓</span>
             </div>
 
-
-            <!-- TOMBOL BUKA SURAT -->
-            <button
-                class="primary-button message-letter-button"
-                id="messageLetterButton"
-                onclick="openLetter()"
-            >
-                Buka Surat 💌
-            </button>
-
         </div>
 
     </section>
@@ -249,6 +280,12 @@
                 Karena rasanya tidak cukup hanya bilang
                 "selamat".
             </p>
+
+
+            <!--
+                AMPLop INI TETAP MENJADI TOMBOL
+                UNTUK MEMBUKA SURAT SETELAH POPUP DITUTUP
+            -->
 
             <div
                 class="envelope-container"
@@ -984,6 +1021,16 @@
 
                     updateStoryProgress();
 
+                    /*
+                     * Observer baru dipasang setelah
+                     * semua section sudah ditampilkan.
+                     *
+                     * Jadi popup tidak akan muncul
+                     * di halaman pertama.
+                     */
+
+                    setupMessagePopupObserver();
+
                 }, 1200);
 
             }, 900);
@@ -1095,26 +1142,6 @@
 
             }
 
-
-            /*
-             * Setelah popup undangan ditutup,
-             * tombol buka surat tetap tersedia
-             * di bagian pesan.
-             */
-
-            const button =
-                document.getElementById(
-                    'messageLetterButton'
-                );
-
-            if (button) {
-
-                button.classList.add(
-                    'visible'
-                );
-
-            }
-
         }
 
 
@@ -1188,41 +1215,33 @@
 
             unlockPageScroll();
 
-
-            /*
-             * Setelah surat ditutup,
-             * tombol buka surat tetap ada.
-             */
-
-            const button =
-                document.getElementById(
-                    'messageLetterButton'
-                );
-
-            if (button) {
-
-                button.classList.add(
-                    'visible'
-                );
-
-            }
-
         }
 
 
         /* =================================================
            AUTO LETTER INVITATION
-           MUNCUL SAAT SCROLL KE BAGIAN PESAN
+           MUNCUL SAAT SCROLL KE BAGIAN
+           "A LETTER FOR YOU"
         ================================================== */
 
         let messagePopupShown = false;
+        let messageObserverStarted = false;
 
 
         function setupMessagePopupObserver() {
 
+            /*
+             * Jangan membuat observer dua kali.
+             */
+
+            if (messageObserverStarted) {
+                return;
+            }
+
+
             const messageSection =
                 document.getElementById(
-                    'content-section'
+                    'support-section'
                 );
 
 
@@ -1231,12 +1250,21 @@
             }
 
 
+            messageObserverStarted = true;
+
+
             const messageObserver =
                 new IntersectionObserver(
                     function(entries) {
 
                         entries.forEach(
                             function(entry) {
+
+                                /*
+                                 * Popup hanya muncul
+                                 * ketika bagian A LETTER FOR YOU
+                                 * sudah masuk ke layar.
+                                 */
 
                                 if (
                                     entry.isIntersecting &&
@@ -1263,7 +1291,7 @@
 
                                         }
 
-                                    }, 700);
+                                    }, 500);
 
                                 }
 
@@ -1272,7 +1300,13 @@
 
                     },
                     {
-                        threshold: 0.5
+                        /*
+                         * Popup muncul ketika
+                         * sekitar 35% bagian pesan
+                         * sudah terlihat.
+                         */
+
+                        threshold: 0.35
                     }
                 );
 
@@ -1743,34 +1777,17 @@
 
 
                 /*
-                 * Tombol buka surat awalnya
-                 * disembunyikan.
+                 * Observer popup TIDAK dipasang
+                 * di sini karena support-section
+                 * masih display:none.
+                 *
+                 * Observer akan dipasang oleh
+                 * openGift() setelah halaman
+                 * utama ditampilkan.
                  */
-
-                const letterButton =
-                    document.getElementById(
-                        'messageLetterButton'
-                    );
-
-
-                if (letterButton) {
-
-                    letterButton.classList.remove(
-                        'visible'
-                    );
-
-                }
 
 
                 updateStoryProgress();
-
-
-                /*
-                 * Pasang observer setelah
-                 * DOM selesai dimuat.
-                 */
-
-                setupMessagePopupObserver();
 
             }
         );
