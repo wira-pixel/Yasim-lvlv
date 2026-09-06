@@ -1222,16 +1222,16 @@
 
             const messageSection =
                 document.getElementById(
-                    'content-section'
+                    'support-section'
                 );
 
 
-            if (!messageSection) {
+            if (!letterSection) {
                 return;
             }
 
 
-            const messageObserver =
+            const letterObserver =
                 new IntersectionObserver(
                     function(entries) {
 
@@ -1760,7 +1760,26 @@
                     );
 
                 }
+/* 
+ * Pindahkan tombol surat ke halaman
+ * A LETTER FOR YOU tanpa mengubah HTML sumber.
+ */
+if (letterButton) {
 
+    const letterSectionCard =
+        document.querySelector(
+            '#support-section .letter-section-card'
+        );
+
+    if (letterSectionCard) {
+
+        letterSectionCard.appendChild(
+            letterButton
+        );
+
+    }
+
+}
 
                 updateStoryProgress();
 
