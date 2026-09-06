@@ -101,6 +101,13 @@
             <span class="progress-label">History</span>
         </div>
 
+        <div class="progress-line"></div>
+
+        <div class="progress-item" data-section="final-section">
+            <span class="progress-dot"></span>
+            <span class="progress-label">Final</span>
+        </div>
+
     </div>
 
 
@@ -266,6 +273,29 @@
                 <div class="envelope-text">
                     Tap the envelope 💌
                 </div>
+
+            </div>
+
+            <div class="typing-letter" id="typingLetter" aria-live="polite">
+
+                <div class="typing-letter-top">
+                    <span>♡</span>
+                    <span>FOR YOU</span>
+                    <span>♡</span>
+                </div>
+
+                <div class="typing-letter-paper">
+                    <div class="typing-content" id="typingContent"></div>
+                    <span class="typing-cursor" id="typingCursor">|</span>
+                </div>
+
+                <button class="typing-skip" id="typingSkip" type="button" onclick="skipTyping()">
+                    Skip typing →
+                </button>
+
+                <button class="typing-continue" id="typingContinue" type="button" onclick="continueFromLetter()">
+                    Continue →
+                </button>
 
             </div>
 
@@ -537,86 +567,23 @@
                 With love, always.
             </div>
 
+            <button class="secret-trigger" id="secretTrigger" type="button" onclick="revealSecretMessage()">
+                Psst... one more thing ♡
+            </button>
+
+            <div class="secret-message" id="secretMessage">
+                <div class="secret-sparkle">✦</div>
+                <p>
+                    Aku mungkin nggak selalu bisa berada di sampingmu,
+                    tapi aku akan selalu senang melihat kamu tumbuh,
+                    berjuang, dan mencapai hal-hal yang kamu impikan.
+                </p>
+                <strong>I'm always rooting for you. 🤍</strong>
+            </div>
+
         </div>
 
     </section>
-
-
-    <!-- =====================================================
-         LETTER POPUP
-    ====================================================== -->
-
-    <div
-        class="popup-overlay"
-        id="letterPopup"
-    >
-
-        <div class="letter-popup-card">
-
-            <button
-                class="popup-close"
-                onclick="closeLetter()"
-            >
-                ×
-            </button>
-
-            <div class="letter-header">
-                <span>♡</span>
-                <h2>For You</h2>
-                <span>♡</span>
-            </div>
-
-            <div class="letter-content">
-
-                <p>
-                    Sayang,
-                </p>
-
-                <p>
-                    Selamat atas sidang skripsinya.
-                    Aku tahu untuk sampai ke titik ini
-                    bukan sesuatu yang mudah.
-                </p>
-
-                <p>
-                    Ada banyak rasa capek, bingung,
-                    tekanan, revisi, dan mungkin
-                    beberapa hari ketika semuanya terasa
-                    berat.
-                </p>
-
-                <p>
-                    Tapi kamu tetap bertahan.
-                    Kamu tetap menyelesaikannya.
-                    Dan hari ini kamu bisa melihat sendiri
-                    bahwa semua perjuangan itu tidak sia-sia.
-                </p>
-
-                <p>
-                    Aku bangga sama kamu.
-                    Bukan hanya karena kamu berhasil
-                    melewati sidang, tapi karena kamu
-                    tidak menyerah ketika perjalanan
-                    terasa sulit.
-                </p>
-
-                <p>
-                    Semoga setelah ini langkahmu
-                    semakin ringan dan semakin banyak
-                    hal baik yang datang.
-                </p>
-
-                <p class="letter-signature">
-                    Congratulations, Sayang. 🤍
-                    <br>
-                    You did amazing.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
 
 
     <!-- =====================================================
@@ -657,49 +624,6 @@
                 Karena kamu pantas mendapatkan bunga
                 setelah semua perjuanganmu. 🤍
             </p>
-
-        </div>
-
-    </div>
-
-
-    <!-- =====================================================
-         ENVELOPE INVITATION POPUP
-    ====================================================== -->
-
-    <div
-        class="popup-overlay"
-        id="envelope-invitation"
-    >
-
-        <div class="invitation-card">
-
-            <button
-                class="popup-close"
-                onclick="closeEnvelope()"
-            >
-                ×
-            </button>
-
-            <div class="invitation-decoration">
-                ✨
-            </div>
-
-            <h2>
-                A Special Message
-            </h2>
-
-            <p>
-                Ada satu surat kecil yang memang
-                sengaja dibuat untukmu.
-            </p>
-
-            <button
-                class="primary-button"
-                onclick="openLetter()"
-            >
-                Buka Surat 💌
-            </button>
 
         </div>
 
@@ -779,476 +703,253 @@
 
         function openGift() {
 
-            const gift =
-                document.querySelector('.gift-box');
+            const gift = document.querySelector('.gift-box');
 
-            if (
-                gift &&
-                gift.classList.contains('opened')
-            ) {
+            if (gift && gift.classList.contains('opened')) {
                 return;
             }
 
             if (gift) {
                 gift.classList.add('opened');
+                playClickEffect(gift);
             }
 
-
-            const music =
-                document.getElementById('bg-music');
+            const music = document.getElementById('bg-music');
 
             if (music) {
-
                 music.play().catch(error => {
-
-                    console.log(
-                        "Audio play blocked/error: ",
-                        error
-                    );
-
+                    console.log("Audio play blocked/error: ", error);
                 });
-
             }
 
-
-            const container =
-                document.getElementById(
-                    'explosion-container'
-                );
-
-            const emojis = [
-                '🌸',
-                '🌷',
-                '🌻',
-                '✨',
-                '🤍',
-                '💖',
-                '💐'
-            ];
-
+            const container = document.getElementById('explosion-container');
+            const emojis = ['🌸', '🌷', '🌻', '✨', '🤍', '💖', '💐'];
             const totalEmojis = 35;
 
+            if (container) {
+                for (let i = 0; i < totalEmojis; i++) {
+                    const span = document.createElement('span');
+                    span.classList.add('exploding-emoji');
+                    span.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                    span.style.left = '50vw';
+                    span.style.top = '50vh';
 
-            for (
-                let i = 0;
-                i < totalEmojis;
-                i++
-            ) {
+                    const xRandom = (Math.random() - 0.5) * window.innerWidth * 0.8;
+                    const yRandom = (Math.random() - 0.5) * window.innerHeight * 0.8;
+                    const rotRandom = Math.random() * 360;
 
-                const span =
-                    document.createElement('span');
+                    span.style.setProperty('--x', `${xRandom}px`);
+                    span.style.setProperty('--y', `${yRandom}px`);
+                    span.style.setProperty('--rot', `${rotRandom}deg`);
+                    container.appendChild(span);
 
-                span.classList.add(
-                    'exploding-emoji'
-                );
-
-                span.innerText =
-                    emojis[
-                        Math.floor(
-                            Math.random() *
-                            emojis.length
-                        )
-                    ];
-
-                span.style.left = '50vw';
-                span.style.top = '50vh';
-
-
-                const xRandom =
-                    (
-                        Math.random() - 0.5
-                    ) *
-                    window.innerWidth *
-                    0.8;
-
-
-                const yRandom =
-                    (
-                        Math.random() - 0.5
-                    ) *
-                    window.innerHeight *
-                    0.8;
-
-
-                const rotRandom =
-                    Math.random() * 360;
-
-
-                span.style.setProperty(
-                    '--x',
-                    `${xRandom}px`
-                );
-
-                span.style.setProperty(
-                    '--y',
-                    `${yRandom}px`
-                );
-
-                span.style.setProperty(
-                    '--rot',
-                    `${rotRandom}deg`
-                );
-
-                container.appendChild(span);
-
+                    setTimeout(() => span.remove(), 1200);
+                }
             }
 
-
             setTimeout(() => {
-
-                const giftSec =
-                    document.getElementById(
-                        'gift-section'
-                    );
+                const giftSec = document.getElementById('gift-section');
 
                 if (giftSec) {
-
                     giftSec.style.opacity = '0';
-
-                    giftSec.style.transform =
-                        'scale(0.8)';
-
-                    giftSec.style.transition =
-                        'all 0.5s ease';
-
+                    giftSec.style.transform = 'scale(0.8)';
+                    giftSec.style.transition = 'all 0.5s ease';
                 }
-
             }, 400);
 
-
             setTimeout(() => {
-
-                const giftSection =
-                    document.getElementById(
-                        'gift-section'
-                    );
+                const giftSection = document.getElementById('gift-section');
 
                 if (giftSection) {
-
-                    giftSection.style.display =
-                        'none';
-
+                    giftSection.style.display = 'none';
                 }
 
-
                 const sections = [
-
                     'content-section',
                     'support-section',
                     'gallery-section',
                     'interactive-section',
                     'history-section',
                     'final-section'
-
                 ];
 
+                sections.forEach((secId, index) => {
+                    const el = document.getElementById(secId);
+                    if (!el) return;
 
-                sections.forEach(
-                    (secId, index) => {
+                    el.style.display = 'flex';
 
-                        const el =
-                            document.getElementById(
-                                secId
-                            );
-
-                        if (!el) return;
-
-
-                        el.style.display =
-                            'flex';
-
-
-                        setTimeout(() => {
-
-                            el.classList.add(
-                                'show'
-                            );
-
-                        }, index * 150);
-
-                    }
-                );
-
+                    setTimeout(() => {
+                        el.classList.add('show');
+                    }, index * 150);
+                });
 
                 setTimeout(() => {
-
                     updateStoryProgress();
-
                 }, 1200);
-
             }, 900);
-
         }
 
 
         /* =================================================
-           LETTER SCROLL LOCK
+           MICRO ANIMATION
         ================================================== */
 
-        let savedScrollPosition = 0;
+        function playClickEffect(element) {
+            if (!element) return;
 
-
-        function lockPageScroll() {
-
-            savedScrollPosition =
-                window.scrollY;
-
-
-            document.body.classList.add(
-                'letter-open'
-            );
-
-
-            document.body.style.position =
-                'fixed';
-
-            document.body.style.top =
-                `-${savedScrollPosition}px`;
-
-            document.body.style.left =
-                '0';
-
-            document.body.style.right =
-                '0';
-
-            document.body.style.width =
-                '100%';
-
-        }
-
-
-        function unlockPageScroll() {
-
-            document.body.classList.remove(
-                'letter-open'
-            );
-
-
-            document.body.style.position =
-                '';
-
-            document.body.style.top =
-                '';
-
-            document.body.style.left =
-                '';
-
-            document.body.style.right =
-                '';
-
-            document.body.style.width =
-                '';
-
-
-            window.scrollTo(
-                0,
-                savedScrollPosition
-            );
-
-        }
-
-
-        /* =================================================
-           LETTER / ENVELOPE
-        ================================================== */
-
-        function openEnvelope() {
-
-            const popup =
-                document.getElementById(
-                    'envelope-invitation'
-                );
-
-            if (!popup) {
-                return;
-            }
-
-            popup.classList.remove('opening');
-
-            popup.classList.add('active');
-
-        }
-
-
-        function closeEnvelope() {
-
-            const popup =
-                document.getElementById(
-                    'envelope-invitation'
-                );
-
-            if (popup) {
-
-                popup.classList.remove(
-                    'opening'
-                );
-
-                popup.classList.remove(
-                    'active'
-                );
-
-            }
-
-        }
-
-
-        function openLetter() {
-
-            const invitation =
-                document.getElementById(
-                    'envelope-invitation'
-                );
-
-            const letterPopup =
-                document.getElementById(
-                    'letterPopup'
-                );
-
-
-            if (!invitation || !letterPopup) {
-                return;
-            }
-
-
-            /*
-             * Mulai animasi membuka amplop
-             * sebelum surat ditampilkan.
-             */
-
-            invitation.classList.add(
-                'opening'
-            );
-
-
-            /*
-             * Tunggu animasi amplop selesai.
-             */
+            element.classList.remove('micro-click');
+            void element.offsetWidth;
+            element.classList.add('micro-click');
 
             setTimeout(() => {
-
-                invitation.classList.remove(
-                    'active'
-                );
-
-                invitation.classList.remove(
-                    'opening'
-                );
-
-
-                /*
-                 * Tampilkan surat.
-                 */
-
-                letterPopup.classList.add(
-                    'active'
-                );
-
-
-                /*
-                 * Kunci halaman belakang
-                 * supaya tidak ikut scroll.
-                 */
-
-                lockPageScroll();
-
-            }, 900);
-
-        }
-
-
-        function closeLetter() {
-
-            const popup =
-                document.getElementById(
-                    'letterPopup'
-                );
-
-
-            if (popup) {
-
-                popup.classList.remove(
-                    'active'
-                );
-
-            }
-
-
-            unlockPageScroll();
-
+                element.classList.remove('micro-click');
+            }, 500);
         }
 
 
         /* =================================================
-           AUTO LETTER INVITATION
-           MUNCUL SAAT SCROLL KE A LETTER FOR YOU
+           ENVELOPE + TYPING LETTER
+           Tidak lagi menggunakan popup surat.
         ================================================== */
 
-        let messagePopupShown = false;
+        const letterParagraphs = [
+            'Sayang,',
+            'Selamat atas sidang skripsinya. Aku tahu untuk sampai ke titik ini bukan sesuatu yang mudah.',
+            'Ada banyak rasa capek, bingung, tekanan, revisi, dan mungkin beberapa hari ketika semuanya terasa berat.',
+            'Tapi kamu tetap bertahan. Kamu tetap menyelesaikannya. Dan hari ini kamu bisa melihat sendiri bahwa semua perjuangan itu tidak sia-sia.',
+            'Aku bangga sama kamu. Bukan hanya karena kamu berhasil melewati sidang, tapi karena kamu tidak menyerah ketika perjalanan terasa sulit.',
+            'Semoga setelah ini langkahmu semakin ringan dan semakin banyak hal baik yang datang.',
+            'Congratulations, Sayang. 🤍',
+            'You did amazing.'
+        ];
 
+        let typingStarted = false;
+        let typingFinished = false;
+        let typingSkipped = false;
+        let typingTimer = null;
+        let typingParagraphIndex = 0;
+        let typingCharIndex = 0;
 
-        function setupMessagePopupObserver() {
+        function openEnvelope() {
+            const container = document.querySelector('.envelope-container');
+            const envelope = document.querySelector('.envelope');
+            const letter = document.getElementById('typingLetter');
 
-            const letterSection =
-                document.getElementById(
-                    'support-section'
-                );
+            if (!container || !envelope || !letter) return;
 
+            playClickEffect(container);
 
-            if (!letterSection) {
+            if (typingStarted) {
+                letter.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 return;
             }
 
+            typingStarted = true;
+            container.classList.add('envelope-opened');
+            envelope.classList.add('opened');
 
-            const letterObserver =
-                new IntersectionObserver(
-                    function(entries) {
+            setTimeout(() => {
+                letter.classList.add('visible');
+                letter.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                startTyping();
+            }, 850);
+        }
 
-                        entries.forEach(
-                            function(entry) {
+        function startTyping() {
+            if (typingFinished || typingSkipped) return;
 
-                                if (
-                                    entry.isIntersecting &&
-                                    !messagePopupShown
-                                ) {
+            const content = document.getElementById('typingContent');
+            const cursor = document.getElementById('typingCursor');
+            const skip = document.getElementById('typingSkip');
 
-                                    messagePopupShown =
-                                        true;
+            if (!content) return;
 
+            if (skip) skip.style.display = 'inline-flex';
+            if (cursor) cursor.style.display = 'inline';
 
-                                    setTimeout(() => {
+            if (typingParagraphIndex >= letterParagraphs.length) {
+                finishTyping();
+                return;
+            }
 
-                                        const popup =
-                                            document.getElementById(
-                                                'envelope-invitation'
-                                            );
-
-
-                                        if (popup) {
-
-                                            popup.classList.add(
-                                                'active'
-                                            );
-
-                                        }
-
-                                    }, 700);
-
-                                }
-
-                            }
-                        );
-
-                    },
-                    {
-                        threshold: 0.5
-                    }
-                );
-
-
-            letterObserver.observe(
-                letterSection
+            let paragraph = content.querySelector(
+                `[data-typing-index="${typingParagraphIndex}"]`
             );
 
+            if (!paragraph) {
+                paragraph = document.createElement('p');
+                paragraph.dataset.typingIndex = typingParagraphIndex;
+                content.appendChild(paragraph);
+            }
+
+            const text = letterParagraphs[typingParagraphIndex];
+
+            if (typingCharIndex < text.length) {
+                paragraph.textContent += text.charAt(typingCharIndex);
+                typingCharIndex++;
+
+                const speed = text.charAt(typingCharIndex - 1) === ' ' ? 20 : 32;
+                typingTimer = setTimeout(startTyping, speed);
+            } else {
+                typingParagraphIndex++;
+                typingCharIndex = 0;
+                typingTimer = setTimeout(startTyping, 280);
+            }
+        }
+
+        function skipTyping() {
+            if (typingFinished) return;
+
+            typingSkipped = true;
+
+            if (typingTimer) {
+                clearTimeout(typingTimer);
+                typingTimer = null;
+            }
+
+            const content = document.getElementById('typingContent');
+            if (!content) return;
+
+            content.innerHTML = '';
+
+            letterParagraphs.forEach((text, index) => {
+                const p = document.createElement('p');
+                p.dataset.typingIndex = index;
+                p.textContent = text;
+                content.appendChild(p);
+            });
+
+            finishTyping();
+        }
+
+        function finishTyping() {
+            typingFinished = true;
+            typingSkipped = false;
+
+            if (typingTimer) {
+                clearTimeout(typingTimer);
+                typingTimer = null;
+            }
+
+            const cursor = document.getElementById('typingCursor');
+            const skip = document.getElementById('typingSkip');
+            const continueButton = document.getElementById('typingContinue');
+
+            if (cursor) cursor.style.display = 'none';
+            if (skip) skip.style.display = 'none';
+            if (continueButton) continueButton.classList.add('visible');
+
+            const letter = document.getElementById('typingLetter');
+            if (letter) letter.classList.add('completed');
+        }
+
+        function continueFromLetter() {
+            const gallery = document.getElementById('gallery-section');
+            if (!gallery) return;
+
+            playClickEffect(document.getElementById('typingContinue'));
+            gallery.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
 
@@ -1258,109 +959,35 @@
 
         let bouquetOpening = false;
 
-
         function showBouquet() {
+            if (bouquetOpening) return;
 
-            /*
-             * Mencegah user menjalankan animasi
-             * berkali-kali ketika sedang loading.
-             */
-
-            if (bouquetOpening) {
-                return;
-            }
-
-
-            const loading =
-                document.getElementById(
-                    'bouquetLoading'
-                );
-
-            const placeholder =
-                document.querySelector(
-                    '.bouquet-placeholder'
-                );
-
+            const loading = document.getElementById('bouquetLoading');
+            const placeholder = document.querySelector('.bouquet-placeholder');
+            const popup = document.getElementById('bouquetPopup');
 
             bouquetOpening = true;
 
-
             if (placeholder) {
-
-                placeholder.classList.add(
-                    'opening'
-                );
-
+                playClickEffect(placeholder);
+                placeholder.classList.add('opening');
             }
-
 
             if (loading) {
-
-                loading.classList.add(
-                    'active'
-                );
-
+                loading.classList.add('active');
             }
-
 
             setTimeout(() => {
-
-                if (loading) {
-
-                    loading.classList.remove(
-                        'active'
-                    );
-
-                }
-
-
-                if (placeholder) {
-
-                    placeholder.classList.remove(
-                        'opening'
-                    );
-
-                }
-
-
-                const popup =
-                    document.getElementById(
-                        'bouquetPopup'
-                    );
-
-
-                if (popup) {
-
-                    popup.classList.add(
-                        'active'
-                    );
-
-                }
-
-
+                if (loading) loading.classList.remove('active');
+                if (placeholder) placeholder.classList.remove('opening');
+                if (popup) popup.classList.add('active');
                 bouquetOpening = false;
-
             }, 1200);
-
         }
 
-
         function closeBouquet() {
-
-            const popup =
-                document.getElementById(
-                    'bouquetPopup'
-                );
-
-
-            if (popup) {
-
-                popup.classList.remove(
-                    'active'
-                );
-
-            }
-
+            const popup = document.getElementById('bouquetPopup');
+            if (popup) popup.classList.remove('active');
         }
 
 
@@ -1369,148 +996,44 @@
         ================================================== */
 
         function openHistoryVideo() {
+            const popup = document.getElementById('historyVideoPopup');
+            const trigger = document.querySelector('.history-video-container');
 
-            const popup =
-                document.getElementById(
-                    'historyVideoPopup'
-                );
-
-
-            if (popup) {
-
-                popup.classList.add(
-                    'active'
-                );
-
-            }
-
+            if (trigger) playClickEffect(trigger);
+            if (popup) popup.classList.add('active');
         }
 
-
         function closeHistoryVideo() {
-
-            const popup =
-                document.getElementById(
-                    'historyVideoPopup'
-                );
-
-
-            const video =
-                document.getElementById(
-                    'historyVideo'
-                );
-
+            const popup = document.getElementById('historyVideoPopup');
+            const video = document.getElementById('historyVideo');
 
             if (video) {
-
                 video.pause();
-
                 video.currentTime = 0;
-
             }
 
-
-            if (popup) {
-
-                popup.classList.remove(
-                    'active'
-                );
-
-            }
-
+            if (popup) popup.classList.remove('active');
         }
 
 
         /* =================================================
-           CLOSE POPUP WHEN CLICK OUTSIDE
+           SECRET MESSAGE
         ================================================== */
 
-        document.addEventListener(
-            'click',
-            function(event) {
+        function revealSecretMessage() {
+            const trigger = document.getElementById('secretTrigger');
+            const message = document.getElementById('secretMessage');
 
-                /*
-                 * LETTER POPUP
-                 */
+            if (!message) return;
 
-                const letterPopup =
-                    document.getElementById(
-                        'letterPopup'
-                    );
+            playClickEffect(trigger);
+            message.classList.add('revealed');
 
-
-                if (
-                    letterPopup &&
-                    event.target === letterPopup &&
-                    letterPopup.classList.contains('active')
-                ) {
-
-                    closeLetter();
-
-                }
-
-
-                /*
-                 * BOUQUET POPUP
-                 */
-
-                const bouquetPopup =
-                    document.getElementById(
-                        'bouquetPopup'
-                    );
-
-
-                if (
-                    bouquetPopup &&
-                    event.target === bouquetPopup
-                ) {
-
-                    closeBouquet();
-
-                }
-
-
-                /*
-                 * ENVELOPE INVITATION
-                 */
-
-                const envelopePopup =
-                    document.getElementById(
-                        'envelope-invitation'
-                    );
-
-
-                if (
-                    envelopePopup &&
-                    event.target === envelopePopup
-                ) {
-
-                    closeEnvelope();
-
-                }
-
-
-                /*
-                 * HISTORY VIDEO
-                 */
-
-                const historyPopup =
-                    document.getElementById(
-                        'historyVideoPopup'
-                    );
-
-
-                if (
-                    historyPopup &&
-                    event.target === historyPopup
-                ) {
-
-                    closeHistoryVideo();
-
-                }
-
+            if (trigger) {
+                trigger.textContent = '♡ A little secret for you';
+                trigger.disabled = true;
             }
-        );
+        }
 
 
         /* =================================================
@@ -1518,253 +1041,149 @@
         ================================================== */
 
         function updateStoryProgress() {
-
             const sections = [
-
                 'gift-section',
                 'content-section',
                 'support-section',
                 'gallery-section',
                 'interactive-section',
-                'history-section'
-
+                'history-section',
+                'final-section'
             ];
 
-
-            const progressItems =
-                document.querySelectorAll(
-                    '.progress-item'
-                );
-
-
+            const progressItems = document.querySelectorAll('.progress-item');
             let currentIndex = 0;
 
+            sections.forEach((sectionId, index) => {
+                const section = document.getElementById(sectionId);
+                if (!section) return;
 
-            sections.forEach(
-                function(sectionId, index) {
+                const rect = section.getBoundingClientRect();
 
-                    const section =
-                        document.getElementById(
-                            sectionId
-                        );
-
-
-                    if (!section) {
-                        return;
-                    }
-
-
-                    const rect =
-                        section.getBoundingClientRect();
-
-
-                    if (
-                        rect.top <=
-                        window.innerHeight * 0.55
-                    ) {
-
-                        currentIndex =
-                            index;
-
-                    }
-
+                if (rect.top <= window.innerHeight * 0.55) {
+                    currentIndex = index;
                 }
-            );
+            });
 
-
-            progressItems.forEach(
-                function(item, index) {
-
-                    item.classList.toggle(
-                        'active',
-                        index === currentIndex
-                    );
-
-
-                    item.classList.toggle(
-                        'completed',
-                        index < currentIndex
-                    );
-
-                }
-            );
-
+            progressItems.forEach((item, index) => {
+                item.classList.toggle('active', index === currentIndex);
+                item.classList.toggle('completed', index < currentIndex);
+            });
         }
 
-
-        window.addEventListener(
-            'scroll',
-            updateStoryProgress,
-            {
-                passive: true
-            }
-        );
+        window.addEventListener('scroll', updateStoryProgress, { passive: true });
 
 
         /* =================================================
            REVEAL SECTIONS ON SCROLL
-           PRIORITAS 4
         ================================================== */
 
-        const observer =
-            new IntersectionObserver(
-                function(entries) {
+        const observer = new IntersectionObserver(
+            function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                    }
+                });
+            },
+            { threshold: 0.15 }
+        );
 
-                    entries.forEach(
-                        function(entry) {
-
-                            if (
-                                entry.isIntersecting
-                            ) {
-
-                                entry.target.classList.add(
-                                    'show'
-                                );
-
-                            }
-
-                        }
-                    );
-
-                },
-                {
-                    threshold: 0.15
-                }
-            );
-
-
-        document
-            .querySelectorAll('.section')
-            .forEach(
-                function(section) {
-
-                    observer.observe(
-                        section
-                    );
-
-                }
-            );
+        document.querySelectorAll('.section').forEach(function(section) {
+            observer.observe(section);
+        });
 
 
         /* =================================================
-           SMOOTH SCROLL
+           SMOOTH SCROLL + PROGRESS CLICK
         ================================================== */
 
-        document
-            .querySelectorAll('.progress-item')
-            .forEach(
-                function(item) {
+        document.querySelectorAll('.progress-item').forEach(function(item) {
+            item.addEventListener('click', function() {
+                const targetId = item.dataset.section;
+                const target = document.getElementById(targetId);
 
-                    item.addEventListener(
-                        'click',
-                        function() {
+                if (!target || target.style.display === 'none') return;
 
-                            const targetId =
-                                item.dataset.section;
-
-
-                            const target =
-                                document.getElementById(
-                                    targetId
-                                );
+                playClickEffect(item);
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
 
 
-                            if (
-                                target &&
-                                target.style.display !==
-                                'none'
-                            ) {
+        /* =================================================
+           GENERAL CLICK MICRO-ANIMATIONS
+        ================================================== */
 
-                                target.scrollIntoView({
-                                    behavior: 'smooth'
-                                });
+        document.querySelectorAll('.bouquet-placeholder, .history-video-container').forEach(function(el) {
+            el.addEventListener('pointerdown', function() {
+                el.classList.add('pressed');
+            });
 
-                            }
+            el.addEventListener('pointerup', function() {
+                el.classList.remove('pressed');
+            });
 
-                        }
-                    );
+            el.addEventListener('pointercancel', function() {
+                el.classList.remove('pressed');
+            });
+        });
 
-                }
-            );
+
+        /* =================================================
+           CLOSE POPUPS WHEN CLICKING OUTSIDE
+           Hanya bouquet dan history yang sekarang tersisa.
+        ================================================== */
+
+        document.addEventListener('click', function(event) {
+            const bouquetPopup = document.getElementById('bouquetPopup');
+            if (bouquetPopup && event.target === bouquetPopup) {
+                closeBouquet();
+            }
+
+            const historyPopup = document.getElementById('historyVideoPopup');
+            if (historyPopup && event.target === historyPopup) {
+                closeHistoryVideo();
+            }
+        });
 
 
         /* =================================================
            ESCAPE TO CLOSE POPUPS
         ================================================== */
 
-        document.addEventListener(
-            'keydown',
-            function(event) {
+        document.addEventListener('keydown', function(event) {
+            if (event.key !== 'Escape') return;
 
-                if (
-                    event.key !== 'Escape'
-                ) {
-                    return;
-                }
-
-
-                closeLetter();
-
-                closeBouquet();
-
-                closeEnvelope();
-
-                closeHistoryVideo();
-
-            }
-        );
+            closeBouquet();
+            closeHistoryVideo();
+        });
 
 
         /* =================================================
            INITIAL STATE
         ================================================== */
 
-        document.addEventListener(
-            'DOMContentLoaded',
-            function() {
+        document.addEventListener('DOMContentLoaded', function() {
+            const hiddenSections = document.querySelectorAll('.hidden-section');
 
-                const hiddenSections =
-                    document.querySelectorAll(
-                        '.hidden-section'
-                    );
+            hiddenSections.forEach(function(section) {
+                section.style.display = 'none';
+            });
 
+            const finalSection = document.getElementById('final-section');
+            if (finalSection) finalSection.style.display = 'none';
 
-                hiddenSections.forEach(
-                    function(section) {
+            const typingLetter = document.getElementById('typingLetter');
+            const typingSkip = document.getElementById('typingSkip');
+            const typingContinue = document.getElementById('typingContinue');
 
-                        section.style.display =
-                            'none';
+            if (typingLetter) typingLetter.classList.remove('visible');
+            if (typingSkip) typingSkip.style.display = 'none';
+            if (typingContinue) typingContinue.classList.remove('visible');
 
-                    }
-                );
-
-
-                const finalSection =
-                    document.getElementById(
-                        'final-section'
-                    );
-
-
-                if (finalSection) {
-
-                    finalSection.style.display =
-                        'none';
-
-                }
-
-
-                updateStoryProgress();
-
-
-                /*
-                 * Pasang observer setelah
-                 * DOM selesai dimuat.
-                 */
-
-                setupMessagePopupObserver();
-
-            }
-        );
+            updateStoryProgress();
+        });
 
     </script>
 
