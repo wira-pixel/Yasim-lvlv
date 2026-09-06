@@ -3020,3 +3020,26 @@ body.letter-typing-open {
         line-height: 1.85;
     }
 }
+
+/* LOCK BACKGROUND SCROLL SAAT POPUP SURAT TERBUKA */
+html.letter-typing-open,
+body.letter-typing-open {
+    overflow: hidden !important;
+    height: 100% !important;
+    overscroll-behavior: none !important;
+}
+
+body.letter-typing-open {
+    touch-action: none;
+}
+
+/* Popup tetap boleh discroll */
+.typing-letter-popup-overlay {
+    overscroll-behavior: contain;
+    touch-action: auto;
+}
+
+.typing-letter-popup-card,
+.typing-letter-popup-card .typing-letter-paper {
+    overscroll-behavior: contain;
+}
