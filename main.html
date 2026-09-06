@@ -1031,8 +1031,35 @@
         /* =================================================
            HISTORY VIDEO
         ================================================== */
+function openHistoryVideo() {
+    const popup = document.getElementById('historyVideoPopup');
+    const trigger = document.querySelector('.history-video-container');
+    const music = document.getElementById('bg-music');
+    const video = document.getElementById('historyVideo');
 
-       function closeHistoryVideo() {
+    if (trigger) {
+        playClickEffect(trigger);
+    }
+
+    // Pause musik background
+    if (music) {
+        music.pause();
+    }
+
+    // Buka popup
+    if (popup) {
+        popup.classList.add('active');
+    }
+
+    // Putar video
+    if (video) {
+        video.play().catch(error => {
+            console.log("Video play blocked/error: ", error);
+        });
+    }
+}
+
+function closeHistoryVideo() {
     const popup = document.getElementById('historyVideoPopup');
     const video = document.getElementById('historyVideo');
     const music = document.getElementById('bg-music');
@@ -1044,28 +1071,17 @@
     }
 
     // Tutup popup
-    if (popup) popup.classList.remove('active');
+    if (popup) {
+        popup.classList.remove('active');
+    }
 
-    // Lanjutkan musik background
+    // Lanjutkan musik dari posisi terakhir
     if (music) {
         music.play().catch(error => {
             console.log("Audio play blocked/error: ", error);
         });
     }
 }
-
-        function closeHistoryVideo() {
-            const popup = document.getElementById('historyVideoPopup');
-            const video = document.getElementById('historyVideo');
-
-            if (video) {
-                video.pause();
-                video.currentTime = 0;
-            }
-
-            if (popup) popup.classList.remove('active');
-        }
-
 
         /* =================================================
            SECRET MESSAGE
