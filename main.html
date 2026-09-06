@@ -1,514 +1,657 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Surprise for You, Sayang</title>
 
-    <!-- SKRIP PROTEKSI SESI -->
+    <link rel="stylesheet" href="style.css?v=4">
+
     <script>
         if (sessionStorage.getItem('isLoggedIn') !== 'true') {
             window.location.replace('index.html');
         }
     </script>
-
-    <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="main-body">
+<body>
 
-    <!-- Audio Player (Latar Belakang Lagu) -->
-    <audio id="bg-music" src="musik.mp4" preload="auto" loop></audio>
+    <!-- =====================================================
+         AMBIENT BACKGROUND
+    ====================================================== -->
 
-    <!-- Efek Kelopak Bunga Berjatuhan di Background -->
-    <div class="falling-petals">
-        <span>🌸</span>
-        <span>🌷</span>
-        <span>🌸</span>
-        <span>✨</span>
-        <span>🌸</span>
-        <span>🌷</span>
-        <span>💖</span>
-        <span>🌸</span>
+  <div class="ambient-background">
+    <div class="ambient-glow glow-one"></div>
+    <div class="ambient-glow glow-two"></div>
+    <div class="ambient-glow glow-three"></div>
+</div>
+
+<!-- =====================================================
+     FALLING PETALS / HEARTS / SPARKLES
+====================================================== -->
+
+<div class="falling-petals">
+    <span>🌸</span>
+    <span>🌷</span>
+    <span>🌸</span>
+    <span>✨</span>
+    <span>🌸</span>
+    <span>🌷</span>
+    <span>💖</span>
+    <span>🌸</span>
+    <span>🤍</span>
+    <span>🌸</span>
+    <span>✨</span>
+    <span>💗</span>
+    <span>🌷</span>
+    <span>🌸</span>
+    <span>💕</span>
+    <span>✨</span>
+    <span>🌺</span>
+    <span>🤍</span>
+    <span>🌸</span>
+    <span>💖</span>
+</div>
+
+<div id="explosion-container"></div>
+
+    <!-- =====================================================
+         PROGRESS INDICATOR
+    ====================================================== -->
+
+    <div class="story-progress" id="storyProgress">
+
+        <div class="progress-item active" data-section="gift-section">
+            <span class="progress-dot"></span>
+            <span class="progress-label">Gift</span>
+        </div>
+
+        <div class="progress-line"></div>
+
+        <div class="progress-item" data-section="content-section">
+            <span class="progress-dot"></span>
+            <span class="progress-label">Message</span>
+        </div>
+
+        <div class="progress-line"></div>
+
+        <div class="progress-item" data-section="support-section">
+            <span class="progress-dot"></span>
+            <span class="progress-label">Letter</span>
+        </div>
+
+        <div class="progress-line"></div>
+
+        <div class="progress-item" data-section="gallery-section">
+            <span class="progress-dot"></span>
+            <span class="progress-label">Memories</span>
+        </div>
+
+        <div class="progress-line"></div>
+
+        <div class="progress-item" data-section="interactive-section">
+            <span class="progress-dot"></span>
+            <span class="progress-label">Bouquet</span>
+        </div>
+
+        <div class="progress-line"></div>
+
+        <div class="progress-item" data-section="history-section">
+            <span class="progress-dot"></span>
+            <span class="progress-label">History</span>
+        </div>
+
     </div>
 
-    <!-- Kontainer Ledakan Emoji -->
-    <div id="explosion-container"></div>
 
-    <!-- POPUP SURAT UTAMA -->
-    <div id="letterPopup" class="letter-popup" onclick="closeLetter()">
+    <!-- =====================================================
+         GIFT SECTION
+    ====================================================== -->
 
-        <div class="letter-content" onclick="event.stopPropagation()">
+    <section class="section gift-section-main" id="gift-section">
 
-            <h2 style="color: #ffb6c1; margin-bottom: 12px; font-size: 1.4rem;">
-                Untuk Kamu, Cintaku 🤍
-            </h2>
+        <div class="card-glass gift-intro-card">
 
-            <p style="line-height: 1.8; font-size: 0.95rem; color: #333;">
-                Terima kasih ya sudah bertahan sampai sejauh ini.
-                Aku tahu proses menuju sidang ini tidak mudah,
-                penuh air mata, lelah, dan rasa ingin menyerah.
-                Tapi kamu membuktikan bahwa kamu wanita hebat
-                yang bisa melaluinya.
-                Aku bangga banget sama kamu, cintaku!
-                Semoga ini jadi awal dari hal-hal baik yang
-                menantimu di masa depan. ✨
+            <div class="opening-small-text">
+                ✨ A little surprise for you ✨
+            </div>
+
+            <h1 class="opening-title">
+                Ada sesuatu untukmu...
+            </h1>
+
+            <p class="opening-subtitle">
+                Tap the gift box to open it 🎁
             </p>
 
+            <div class="gift-box" onclick="openGift()">
+
+                <div class="gift-lid">
+
+                    <div class="gift-bow">
+                        <span class="bow-left"></span>
+                        <span class="bow-right"></span>
+                        <span class="bow-center"></span>
+                    </div>
+
+                </div>
+
+                <div class="gift-body">
+
+                    <div class="gift-ribbon vertical"></div>
+                    <div class="gift-ribbon horizontal"></div>
+
+                </div>
+
+                <div class="gift-glow"></div>
+
+            </div>
+
+            <div class="opening-hint">
+                <span>♡</span>
+                Click the gift
+                <span>♡</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MAIN CONGRATULATION / MESSAGE
+    ====================================================== -->
+
+    <section
+        class="section hidden-section cinematic-section"
+        id="content-section"
+    >
+
+        <div class="card-glass main-message-card">
+
+            <div class="message-top-label">
+                ✨ FINALLY ✨
+            </div>
+
+            <div class="message-heart">
+                ♡
+            </div>
+
+            <h1 class="main-title">
+                YOU DID IT!
+            </h1>
+
+            <h2 class="main-subtitle">
+                HAPPY SIDANG SKRIPSI
+            </h2>
+
+            <div class="title-divider">
+                <span></span>
+                ♡
+                <span></span>
+            </div>
+
+            <p class="main-message">
+                Selamat ya, Sayang.
+            </p>
+
+            <p class="main-message-secondary">
+                Setelah semua perjuangan, lelah, revisi,
+                dan hari-hari yang tidak mudah,
+                akhirnya kamu sampai juga di titik ini.
+            </p>
+
+            <div class="proud-text">
+                I'm so proud of you. 🤍
+            </div>
+
+            <div class="scroll-hint">
+                <span>↓</span>
+                Keep scrolling
+                <span>↓</span>
+            </div>
+
+
+            <!-- TOMBOL BUKA SURAT -->
             <button
-                onclick="closeLetter()"
-                style="
-                    margin-top:20px;
-                    background:#ec407a;
-                    border:none;
-                    padding:10px 20px;
-                    color:white;
-                    border-radius:10px;
-                    cursor:pointer;
-                    font-weight:600;
-                    width:100%;
-                "
+                class="primary-button message-letter-button"
+                id="messageLetterButton"
+                onclick="openLetter()"
             >
-                Tutup Surat 💌
+                Buka Surat 💌
             </button>
 
         </div>
-    </div>
+
+    </section>
 
 
-    <!-- Kontainer Scroll Mengalir Bebas -->
-    <div class="scroll-container">
+    <!-- =====================================================
+         SUPPORT / LETTER SECTION
+    ====================================================== -->
 
-        <!-- SLIDE 1: Kotak Kado -->
-        <section class="section" id="gift-section">
+    <section
+        class="section hidden-section"
+        id="support-section"
+    >
 
-            <div class="card-glass">
+        <div class="card-glass letter-section-card">
 
-                <p style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 5px;">
-                    Tap the gift box to open it 🎁
-                </p>
-
-                <div class="gift-box" onclick="openGift()">
-                    <div class="gift-lid">
-                        <div class="gift-bow">
-                            <span class="bow-left"></span>
-                            <span class="bow-right"></span>
-                            <span class="bow-center"></span>
-                        </div>
-                    </div>
-
-                    <div class="gift-body">
-                        <div class="gift-ribbon vertical"></div>
-                        <div class="gift-ribbon horizontal"></div>
-                    </div>
-
-                    <div class="gift-glow"></div>
-                </div>
-
+            <div class="section-eyebrow">
+                A LETTER FOR YOU
             </div>
 
-        </section>
-
-
-        <!-- SLIDE 2: Ucapan Selamat Sidang -->
-        <section
-            class="section fade-section"
-            id="content-section"
-            style="display: none;"
-        >
-
-            <div class="card-glass">
-
-                <p style="
-                    font-size: 0.8rem;
-                    letter-spacing: 2px;
-                    opacity: 0.7;
-                    text-transform: uppercase;
-                ">
-                    Your Special Day 🤍
-                </p>
-
-                <h1 style="
-                    font-size: 1.8rem;
-                    margin: 10px 0;
-                    color: #ffb6c1;
-                ">
-                    HAPPY SIDANG SKRIPSI
-                </h1>
-
-                <p style="
-                    font-size: 0.9rem;
-                    font-style: italic;
-                    opacity: 0.9;
-                ">
-                    "Wishing you happiness, good health, and all your dreams come true." ✨
-                </p>
-
-            </div>
-
-            <p class="scroll-hint">
-                Scroll kebawah untuk membaca pesan... ↓
-            </p>
-
-        </section>
-
-
-        <!-- SLIDE 3: SURAT -->
-        <section
-            class="section fade-section"
-            id="support-section"
-            style="display: none;"
-        >
-
-            <div class="text-only-container">
-
-                <p style="
-                    font-size: 0.8rem;
-                    letter-spacing: 2px;
-                    opacity: 0.7;
-                    text-transform: uppercase;
-                    margin-bottom: 10px;
-                ">
-                    From My Heart 💌
-                </p>
-
-                <h2 style="
-                    font-size: 1.5rem;
-                    margin-bottom: 15px;
-                    color: #ffb6c1;
-                ">
-                    A Letter For You
-                </h2>
-
-                <p style="
-                    font-size: 0.95rem;
-                    line-height: 1.8;
-                    opacity: 0.95;
-                    max-width: 320px;
-                    margin: 0 auto;
-                    text-align: center;
-                ">
-                    Ada pesan khusus untukmu di bawah ini...
-                    <br>
-                    Tekan ikon suratnya ya! 👇✨
-                </p>
-
-                <!-- Ikon Amplop -->
-                <div
-                    onclick="openLetter()"
-                    style="
-                        cursor: pointer;
-                        font-size: 55px;
-                        display: inline-block;
-                        animation: bounce 2s infinite;
-                        margin-top: 15px;
-                    "
-                >
-                    💌
-                </div>
-
-                <button
-                    id="message-letter-button"
-                    class="message-letter-button"
-                    onclick="openLetter()"
-                >
-                    Buka Surat Lagi 💌
-                </button>
-
-            </div>
-
-            <p class="scroll-hint">
-                Scroll lagi ya... ↓
-            </p>
-
-        </section>
-
-
-        <!-- SLIDE 4: Galeri Foto Polaroid -->
-        <section
-            class="section fade-in-element"
-            id="gallery-section"
-            style="display: none;"
-        >
-
-            <h2 style="color: #ffb6c1; margin-bottom: 30px;">
-                Our Memories
+            <h2 class="section-title">
+                Ada sedikit sesuatu yang ingin kusampaikan...
             </h2>
+
+            <p class="section-description">
+                Karena rasanya tidak cukup hanya bilang
+                "selamat".
+            </p>
+
+            <div
+                class="envelope-container"
+                onclick="openEnvelope()"
+            >
+
+                <div class="envelope">
+
+                    <div class="envelope-back"></div>
+
+                    <div class="envelope-paper">
+                        <span>♡</span>
+                    </div>
+
+                    <div class="envelope-front"></div>
+
+                    <div class="envelope-flap"></div>
+
+                    <div class="envelope-seal">
+                        ♥
+                    </div>
+
+                </div>
+
+                <div class="envelope-text">
+                    Tap the envelope 💌
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         GALLERY SECTION
+    ====================================================== -->
+
+    <section
+        class="section hidden-section"
+        id="gallery-section"
+    >
+
+        <div class="gallery-section-inner">
+
+            <div class="section-eyebrow">
+                LITTLE MEMORIES
+            </div>
+
+            <h2 class="section-title">
+                Some Moments With You
+            </h2>
+
+            <p class="section-description">
+                Dari banyaknya momen yang pernah kita lewati,
+                beberapa di antaranya akan selalu punya tempat
+                spesial.
+            </p>
+
 
             <div class="gallery-container">
 
-                <div
-                    class="polaroid"
-                    onclick="openModal('foto1.jpeg')"
-                >
-                    <img
-                        src="foto1.jpeg"
-                        alt="Foto 1"
-                    >
-                    <p>
-                        Our very first sunset together
-                    </p>
+                <div class="polaroid polaroid-one">
+
+                    <div class="polaroid-image">
+
+                        <img
+                            src="foto1.jpeg"
+                            alt="Our memory"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <div class="polaroid-caption">
+                        one of my favorite moments ♡
+                    </div>
+
                 </div>
 
 
-                <div
-                    class="polaroid"
-                    onclick="openModal('foto2.jpeg')"
-                >
-                    <img
-                        src="foto2.jpeg"
-                        alt="Foto 2"
-                    >
-                    <p>
-                        Our favourite cafe
-                    </p>
+                <div class="polaroid polaroid-two">
+
+                    <div class="polaroid-image">
+
+                        <img
+                            src="foto2.jpeg"
+                            alt="Our memory"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <div class="polaroid-caption">
+                        a memory worth keeping
+                    </div>
+
                 </div>
 
 
-                <div
-                    class="polaroid"
-                    onclick="openModal('foto3.jpeg')"
-                >
-                    <img
-                        src="foto3.jpeg"
-                        alt="Foto 3"
-                    >
-                    <p>
-                        First time at the beach
-                    </p>
+                <div class="polaroid polaroid-three">
+
+                    <div class="polaroid-image">
+
+                        <img
+                            src="foto3.jpeg"
+                            alt="Our memory"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <div class="polaroid-caption">
+                        and hopefully many more ♡
+                    </div>
+
                 </div>
 
             </div>
 
-        </section>
+            <div class="gallery-bottom-text">
+                Every picture has a story.
+            </div>
+
+        </div>
+
+    </section>
 
 
-        <!-- SLIDE 5: KARTU BUKET -->
-        <section
-            class="section fade-section"
-            id="interactive-section"
-            style="display: none;"
-        >
+    <!-- =====================================================
+         BOUQUET SECTION
+    ====================================================== -->
 
-            <div
-                class="card-glass"
-                style="max-width: 340px;"
-            >
+    <section
+        class="section hidden-section"
+        id="interactive-section"
+    >
 
-                <p style="
-                    font-size: 0.8rem;
-                    letter-spacing: 2px;
-                    opacity: 0.7;
-                    text-transform: uppercase;
-                    margin-bottom: 5px;
-                ">
-                    Special Delivery 💐
-                </p>
+        <div class="card-glass bouquet-section-card">
 
-                <h2 style="
-                    font-size: 1.3rem;
-                    margin-bottom: 10px;
-                    color: #ffb6c1;
-                ">
-                    A Real Bouquet For You
-                </h2>
+            <div class="section-eyebrow">
+                THIS ONE IS FOR YOU
+            </div>
 
-                <p style="
-                    font-size: 0.9rem;
-                    opacity: 0.9;
-                    margin-bottom: 15px;
-                    line-height: 1.6;
-                ">
-                    Selamat atas kelulusan sidangnya, sayang!
-                    Buket bunga ini spesial buat kamu. 🌷✨
-                </p>
+            <h2 class="section-title">
+                A Little Flower For You 💐
+            </h2>
 
+            <p class="section-description">
+                Kalau aku bisa memberikannya langsung,
+                mungkin aku sudah berdiri di depanmu sekarang.
+            </p>
 
-                <!-- TAMPILAN AWAL -->
-                <div id="bouquet-initial-view">
+            <div class="bouquet-delivery-area">
 
-                    <div class="bouquet-img-container">
+                <div
+                    class="bouquet-placeholder"
+                    onclick="showBouquet()"
+                >
 
-                        <img
-                            src="https://img.icons8.com/color/144/flower-bouquet.png"
-                            alt="Buket Bunga"
-                            onerror="this.src='https://cdn-icons-png.flaticon.com/512/2965/2965567.png'"
-                        >
-
+                    <div class="bouquet-icon">
+                        💐
                     </div>
 
-                    <div style="margin-top: 15px;">
+                    <div class="bouquet-delivery-text">
+                        Receive your bouquet
+                    </div>
 
-                        <button
-                            onclick="startBouquetLoading()"
-                            style="
-                                background:#ec407a;
-                                border:none;
-                                padding:10px 20px;
-                                color:white;
-                                border-radius:12px;
-                                cursor:pointer;
-                                font-weight:600;
-                                width:100%;
-                                box-shadow:0 4px 15px rgba(236,64,122,0.4);
-                            "
-                        >
-                            Terima Buketnya 💐
-                        </button>
-
+                    <div class="bouquet-click-hint">
+                        Tap to open
                     </div>
 
                 </div>
 
-
-                <!-- ANIMASI LOADING -->
                 <div
-                    id="bouquet-loading"
-                    style="
-                        display:none;
-                        padding:30px 0;
-                    "
+                    class="bouquet-loading"
+                    id="bouquetLoading"
                 >
 
-                    <div
-                        class="spinner-flower"
-                        style="
-                            font-size:40px;
-                            animation:spin 1.5s linear infinite;
-                        "
-                    >
+                    <div class="loading-flower">
                         🌷
                     </div>
 
-                    <p
-                        id="loading-status-text"
-                        style="
-                            font-size:0.85rem;
-                            color:#ffb6c1;
-                            margin-top:15px;
-                            letter-spacing:1px;
-                            animation:pulseText 1s infinite alternate;
-                        "
-                    >
-                        Sedang merangkai bunga cinta...
+                    <p>
+                        Preparing something special...
                     </p>
 
                 </div>
 
+            </div>
 
-                <!-- TOMBOL JIKA SUDAH PERNAH DIBUKA -->
-                <div
-                    id="bouquet-reopen-view"
-                    style="display:none;"
-                >
+        </div>
 
-                    <div style="
-                        font-size:45px;
-                        margin:10px 0;
-                    ">
-                        💐✨
+    </section>
+
+
+    <!-- =====================================================
+         OUR HISTORY
+    ====================================================== -->
+
+    <section
+        class="section hidden-section"
+        id="history-section"
+    >
+
+        <div class="card-glass history-section-card">
+
+            <div class="section-eyebrow">
+                OUR STORY
+            </div>
+
+            <h2 class="section-title">
+                Our History 🎞️
+            </h2>
+
+            <p class="section-description">
+                And this is only the beginning...
+            </p>
+
+            <div
+                class="history-video-container"
+                onclick="openHistoryVideo()"
+            >
+
+                <div class="history-video-preview">
+
+                    <div class="history-play-button">
+                        ▶
                     </div>
 
-                    <button
-                        onclick="openRealBouquetPopup()"
-                        style="
-                            background:rgba(255,255,255,0.15);
-                            border:1px solid rgba(255,255,255,0.3);
-                            padding:10px 20px;
-                            color:white;
-                            border-radius:12px;
-                            cursor:pointer;
-                            font-weight:600;
-                            width:100%;
-                        "
-                    >
-                        Buka Buket Lagi 💐
-                    </button>
+                    <div class="history-video-label">
+                        Watch our story
+                    </div>
 
                 </div>
 
             </div>
 
-        </section>
-
-
-        <!-- ================================================== -->
-        <!-- SLIDE 6: OUR HISTORY -->
-        <!-- ================================================== -->
-
-        <section
-            class="section history-section fade-section"
-            id="history-section"
-            style="display: none;"
-        >
-
-            <div class="history-card">
-
-                <div class="history-icon">
-                    🎞️
-                </div>
-
-                <p class="history-small-title">
-                    A LITTLE STORY OF US
-                </p>
-
-                <h2>
-                    Our History 🤍
-                </h2>
-
-                <p class="history-description">
-                    Dari awal kita bertemu sampai sejauh ini,
-                    ada begitu banyak cerita yang kita lewati bersama.
-                    Yuk, lihat kembali perjalanan kecil kita. ✨
-                </p>
-
-                <button
-                    class="history-button"
-                    onclick="openHistoryVideo()"
-                >
-                    ▶ Our History
-                </button>
-
+            <div class="history-ending-text">
+                From all the little moments we've shared,
+                I hope there will be many more memories to come.
             </div>
 
-        </section>
+        </div>
 
-    </div>
+    </section>
 
 
-    <!-- ================================================== -->
-    <!-- MODAL POPUP ZOOM FOTO -->
-    <!-- ================================================== -->
+    <!-- =====================================================
+         FINAL / CLOSING SECTION
+    ====================================================== -->
 
-    <div
-        id="myModal"
-        class="modal"
-        onclick="closeModal()"
+    <section
+        class="section final-section"
+        id="final-section"
     >
 
-        <img
-            class="modal-content"
-            id="img01"
-        >
+        <div class="final-content">
+
+            <div class="final-sparkle">
+                ✨
+            </div>
+
+            <div class="final-small-text">
+                AND BEFORE YOU GO...
+            </div>
+
+            <h2 class="final-title">
+                I'm Proud of You.
+            </h2>
+
+            <div class="final-divider">
+                ♡
+            </div>
+
+            <p class="final-message">
+                Selamat atas satu langkah besar
+                yang sudah kamu lewati.
+            </p>
+
+            <p class="final-message">
+                Semoga setelah ini ada lebih banyak
+                hal baik yang datang kepadamu.
+            </p>
+
+            <p class="final-message-emphasis">
+                Congratulations, Sayang. 🤍
+            </p>
+
+            <div class="final-heart">
+                ♥
+            </div>
+
+            <div class="final-end">
+                With love, always.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         LETTER POPUP
+    ====================================================== -->
+
+    <div
+        class="popup-overlay"
+        id="letterPopup"
+    >
+
+        <div class="letter-popup-card">
+
+            <button
+                class="popup-close"
+                onclick="closeLetter()"
+            >
+                ×
+            </button>
+
+            <div class="letter-header">
+                <span>♡</span>
+                <h2>For You</h2>
+                <span>♡</span>
+            </div>
+
+            <div class="letter-content">
+
+                <p>
+                    Sayang,
+                </p>
+
+                <p>
+                    Selamat atas sidang skripsinya.
+                    Aku tahu untuk sampai ke titik ini
+                    bukan sesuatu yang mudah.
+                </p>
+
+                <p>
+                    Ada banyak rasa capek, bingung,
+                    tekanan, revisi, dan mungkin
+                    beberapa hari ketika semuanya terasa
+                    berat.
+                </p>
+
+                <p>
+                    Tapi kamu tetap bertahan.
+                    Kamu tetap menyelesaikannya.
+                    Dan hari ini kamu bisa melihat sendiri
+                    bahwa semua perjuangan itu tidak sia-sia.
+                </p>
+
+                <p>
+                    Aku bangga sama kamu.
+                    Bukan hanya karena kamu berhasil
+                    melewati sidang, tapi karena kamu
+                    tidak menyerah ketika perjalanan
+                    terasa sulit.
+                </p>
+
+                <p>
+                    Semoga setelah ini langkahmu
+                    semakin ringan dan semakin banyak
+                    hal baik yang datang.
+                </p>
+
+                <p class="letter-signature">
+                    Congratulations, Sayang. 🤍
+                    <br>
+                    You did amazing.
+                </p>
+
+            </div>
+
+        </div>
 
     </div>
 
 
-    <!-- ================================================== -->
-    <!-- POPUP FOTO BUKET ASLI -->
-    <!-- ================================================== -->
+    <!-- =====================================================
+         BOUQUET POPUP
+    ====================================================== -->
 
     <div
+        class="popup-overlay"
         id="bouquetPopup"
-        class="bouquet-popup-overlay"
-        style="display:none;"
-        onclick="closeBouquetPopup()"
     >
 
-        <div
-            class="bouquet-popup-inner"
-            onclick="event.stopPropagation()"
-        >
+        <div class="bouquet-popup-card">
+
+            <button
+                class="popup-close"
+                onclick="closeBouquet()"
+            >
+                ×
+            </button>
+
+            <div class="bouquet-popup-header">
+                <span>💐</span>
+                <h2>For You</h2>
+                <span>💐</span>
+            </div>
 
             <div class="bouquet-photo-wrapper">
 
@@ -516,16 +659,56 @@
                     src="buket-asli.jpeg"
                     alt="Buket Asli"
                     class="bouquet-photo"
-                    onerror="this.src='https://images.unsplash.com/photo-1561181286-d3fee7d55364?w=500&auto=format&fit=crop&q=60'"
                 >
 
             </div>
 
+            <p class="bouquet-popup-text">
+                Karena kamu pantas mendapatkan bunga
+                setelah semua perjuanganmu. 🤍
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         ENVELOPE INVITATION POPUP
+    ====================================================== -->
+
+    <div
+        class="popup-overlay"
+        id="envelope-invitation"
+    >
+
+        <div class="invitation-card">
+
             <button
-                onclick="closeBouquetPopup()"
-                class="bouquet-close-button"
+                class="popup-close"
+                onclick="closeEnvelope()"
             >
-                Tutup Buket 💌
+                ×
+            </button>
+
+            <div class="invitation-decoration">
+                ✨
+            </div>
+
+            <h2>
+                A Special Message
+            </h2>
+
+            <p>
+                Ada satu surat kecil yang memang
+                sengaja dibuat untukmu.
+            </p>
+
+            <button
+                class="primary-button"
+                onclick="openLetter()"
+            >
+                Buka Surat 💌
             </button>
 
         </div>
@@ -533,172 +716,115 @@
     </div>
 
 
-    <!-- ================================================== -->
-    <!-- POPUP KEJUTAN SURAT UTAMA -->
-    <!-- ================================================== -->
+    <!-- =====================================================
+         HISTORY VIDEO POPUP
+    ====================================================== -->
 
     <div
-        id="envelope-invitation"
-        class="envelope-popup-overlay"
-        style="display:none;"
-        onclick="closeEnvelopePopup()"
-    >
-
-        <div
-            class="envelope-popup-card"
-            onclick="event.stopPropagation()"
-        >
-
-            <p style="
-                font-size:0.8rem;
-                letter-spacing:2px;
-                opacity:0.7;
-                text-transform:uppercase;
-                margin-bottom:5px;
-            ">
-                From My Heart 💌
-            </p>
-
-            <h2 style="
-                font-size:1.3rem;
-                margin-bottom:10px;
-                color:#ffb6c1;
-            ">
-                A Letter For You
-            </h2>
-
-            <p style="
-                font-size:0.9rem;
-                opacity:0.9;
-                margin-bottom:15px;
-            ">
-                Ada pesan khusus untukmu di bawah ini...
-                <br>
-                Tekan ikon suratnya ya! 👇✨
-            </p>
-
-            <div
-                onclick="openLetterFromPopup()"
-                style="
-                    cursor:pointer;
-                    font-size:55px;
-                    display:inline-block;
-                    animation:bounce 2s infinite;
-                    margin:10px 0;
-                "
-            >
-                💌
-            </div>
-
-            <div style="margin-top:15px;">
-
-                <button
-                    onclick="closeEnvelopePopup()"
-                    style="
-                        background:rgba(255,255,255,0.15);
-                        border:1px solid rgba(255,255,255,0.3);
-                        padding:8px 16px;
-                        color:white;
-                        border-radius:10px;
-                        cursor:pointer;
-                        font-size:0.8rem;
-                    "
-                >
-                    Tutup
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- ================================================== -->
-    <!-- POPUP VIDEO OUR HISTORY -->
-    <!-- ================================================== -->
-
-    <div
+        class="popup-overlay"
         id="historyVideoPopup"
-        class="history-video-overlay"
-        onclick="closeHistoryVideo()"
     >
 
-        <div
-            class="history-video-card"
-            onclick="event.stopPropagation()"
-        >
+        <div class="history-video-popup-card">
 
-            <div class="history-video-header">
+            <button
+                class="popup-close"
+                onclick="closeHistoryVideo()"
+            >
+                ×
+            </button>
 
-                <p>
-                    OUR STORY 🤍
-                </p>
-
-                <h2>
-                    Our History
-                </h2>
-
-            </div>
-
-
-            <div class="history-video-wrapper">
-
-                <!--
-                    GANTI URL DI BAWAH INI DENGAN
-                    LINK RAW VIDEO GITHUB KAMU
-                -->
+            <div class="video-wrapper">
 
                 <video
                     id="historyVideo"
                     controls
                     playsinline
-                    preload="metadata"
                 >
+
                     <source
-                        src="VIDEO_GITHUB_KAMU"
+                        src="history.mp4"
                         type="video/mp4"
                     >
 
-                    Browser kamu tidak mendukung video.
+                    Browser kamu tidak mendukung
+                    pemutaran video.
+
                 </video>
 
             </div>
-
-
-            <button
-                class="history-close-button"
-                onclick="closeHistoryVideo()"
-            >
-                Tutup 🤍
-            </button>
 
         </div>
 
     </div>
 
 
-    <!-- ================================================== -->
-    <!-- JAVASCRIPT -->
-    <!-- ================================================== -->
+    <!-- =====================================================
+         BACKGROUND MUSIC
+    ====================================================== -->
+
+    <audio
+        id="bg-music"
+        loop
+        preload="auto"
+    >
+
+        <source
+            src="musik.mp4"
+            type="audio/mp4"
+        >
+
+    </audio>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
 
     <script>
 
+        /* =================================================
+           GIFT
+        ================================================== */
+
         function openGift() {
 
-            const music = document.getElementById('bg-music');
+            const gift =
+                document.querySelector('.gift-box');
+
+            if (
+                gift &&
+                gift.classList.contains('opened')
+            ) {
+                return;
+            }
+
+            if (gift) {
+                gift.classList.add('opened');
+            }
+
+
+            const music =
+                document.getElementById('bg-music');
 
             if (music) {
 
                 music.play().catch(error => {
-                    console.log("Audio play blocked/error: ", error);
+
+                    console.log(
+                        "Audio play blocked/error: ",
+                        error
+                    );
+
                 });
 
             }
 
 
             const container =
-                document.getElementById('explosion-container');
+                document.getElementById(
+                    'explosion-container'
+                );
 
             const emojis = [
                 '🌸',
@@ -713,279 +839,18 @@
             const totalEmojis = 35;
 
 
-            for (let i = 0; i < totalEmojis; i++) {
-
-                const span = document.createElement('span');
-
-                span.classList.add('exploding-emoji');
-
-                span.innerText =
-                    emojis[Math.floor(Math.random() * emojis.length)];
-
-                span.style.left = '50vw';
-                span.style.top = '50vh';
-
-
-                const xRandom =
-                    (Math.random() - 0.5) *
-                    window.innerWidth *
-                    0.8;
-
-                const yRandom =
-                    (Math.random() - 0.5) *
-                    window.innerHeight *
-                    0.8;
-
-                const rotRandom =
-                    Math.random() * 360;
-
-
-                span.style.setProperty(
-                    '--x',
-                    `${xRandom}px`
-                );
-
-                span.style.setProperty(
-                    '--y',
-                    `${yRandom}px`
-                );
-
-                span.style.setProperty(
-                    '--rot',
-                    `${rotRandom}deg`
-                );
-
-
-                container.appendChild(span);
-
-            }
-
-
-            setTimeout(() => {
-
-                const giftSec =
-                    document.getElementById('gift-section');
-
-                giftSec.style.opacity = '0';
-
-                giftSec.style.transform = 'scale(0.8)';
-
-                giftSec.style.transition =
-                    'all 0.5s ease';
-
-            }, 400);
-
-
-            setTimeout(() => {
-
-                document.getElementById(
-                    'gift-section'
-                ).style.display = 'none';
-
-
-                /*
-                    SEKARANG OUR HISTORY IKUT DIMASUKKAN
-                    KE DALAM URUTAN SECTION.
-                */
-
-                const sections = [
-                    'content-section',
-                    'support-section',
-                    'gallery-section',
-                    'interactive-section',
-                    'history-section'
-                ];
-
-
-                sections.forEach((secId, index) => {
-
-                    const el =
-                        document.getElementById(secId);
-
-                    el.style.display = 'flex';
-
-
-                    setTimeout(() => {
-
-                        el.classList.add('show');
-
-                    }, index * 100);
-
-                });
-
-            }, 900);
-
-        }
-
-
-
-        // ==================================================
-        // BOUQUET LOADING
-        // ==================================================
-
-        function startBouquetLoading() {
-
-            document.getElementById(
-                'bouquet-initial-view'
-            ).style.display = 'none';
-
-
-            const loadingDiv =
-                document.getElementById('bouquet-loading');
-
-            loadingDiv.style.display = 'block';
-
-
-            const loadingTexts = [
-
-                "Sedang merangkai bunga cinta...",
-
-                "Mencari pita warna kesukaanmu...",
-
-                "Menambahkan sedikit taburan kebahagiaan...",
-
-                "Dikit lagi sampai nih..."
-
-            ];
-
-
-            let textIndex = 0;
-
-
-            const textInterval = setInterval(() => {
-
-                textIndex =
-                    (textIndex + 1) %
-                    loadingTexts.length;
-
-
-                const statusEl =
-                    document.getElementById(
-                        'loading-status-text'
-                    );
-
-
-                if (statusEl) {
-
-                    statusEl.innerText =
-                        loadingTexts[textIndex];
-
-                }
-
-            }, 800);
-
-
-            setTimeout(() => {
-
-                clearInterval(textInterval);
-
-                loadingDiv.style.display = 'none';
-
-
-                document.getElementById(
-                    'bouquet-reopen-view'
-                ).style.display = 'block';
-
-
-                openRealBouquetPopup();
-
-                triggerBouquetExplosion();
-
-            }, 3200);
-
-        }
-
-
-
-        // ==================================================
-        // BUKA POPUP BUKET
-        // ==================================================
-
-        function openRealBouquetPopup() {
-
-            const popup =
-                document.getElementById('bouquetPopup');
-
-            popup.style.display = 'flex';
-
-
-            setTimeout(() => {
-
-                popup.classList.add('show');
-
-            }, 50);
-
-
-            document.body.style.overflow = 'hidden';
-
-            document.documentElement.style.overflow = 'hidden';
-
-        }
-
-
-
-        // ==================================================
-        // TUTUP POPUP BUKET
-        // ==================================================
-
-        function closeBouquetPopup() {
-
-            const popup =
-                document.getElementById('bouquetPopup');
-
-            popup.classList.remove('show');
-
-
-            setTimeout(() => {
-
-                popup.style.display = 'none';
-
-                document.body.style.overflow = 'auto';
-
-                document.documentElement.style.overflow = 'auto';
-
-            }, 300);
-
-        }
-
-
-
-        // ==================================================
-        // EXPLOSION BUKET
-        // ==================================================
-
-        function triggerBouquetExplosion() {
-
-            const container =
-                document.getElementById(
-                    'explosion-container'
-                );
-
-
-            const emojis = [
-                '💐',
-                '🌷',
-                '🌸',
-                '💖',
-                '✨',
-                '🤍',
-                '📸'
-            ];
-
-
-            const totalEmojis = 30;
-
-
-            for (let i = 0; i < totalEmojis; i++) {
+            for (
+                let i = 0;
+                i < totalEmojis;
+                i++
+            ) {
 
                 const span =
                     document.createElement('span');
 
-
                 span.classList.add(
                     'exploding-emoji'
                 );
-
 
                 span.innerText =
                     emojis[
@@ -995,20 +860,22 @@
                         )
                     ];
 
-
                 span.style.left = '50vw';
-
                 span.style.top = '50vh';
 
 
                 const xRandom =
-                    (Math.random() - 0.5) *
+                    (
+                        Math.random() - 0.5
+                    ) *
                     window.innerWidth *
                     0.8;
 
 
                 const yRandom =
-                    (Math.random() - 0.5) *
+                    (
+                        Math.random() - 0.5
+                    ) *
                     window.innerHeight *
                     0.8;
 
@@ -1022,262 +889,474 @@
                     `${xRandom}px`
                 );
 
-
                 span.style.setProperty(
                     '--y',
                     `${yRandom}px`
                 );
-
 
                 span.style.setProperty(
                     '--rot',
                     `${rotRandom}deg`
                 );
 
-
                 container.appendChild(span);
 
             }
 
-        }
+
+            setTimeout(() => {
+
+                const giftSec =
+                    document.getElementById(
+                        'gift-section'
+                    );
+
+                if (giftSec) {
+
+                    giftSec.style.opacity = '0';
+
+                    giftSec.style.transform =
+                        'scale(0.8)';
+
+                    giftSec.style.transition =
+                        'all 0.5s ease';
+
+                }
+
+            }, 400);
 
 
+            setTimeout(() => {
 
-        // ==================================================
-        // OBSERVER FADE
-        // ==================================================
+                const giftSection =
+                    document.getElementById(
+                        'gift-section'
+                    );
 
-        const observer =
-            new IntersectionObserver(
-                (entries) => {
+                if (giftSection) {
 
-                    entries.forEach(entry => {
+                    giftSection.style.display =
+                        'none';
 
-                        if (entry.isIntersecting) {
+                }
 
-                            entry.target.classList.add(
-                                'visible'
+
+                const sections = [
+
+                    'content-section',
+                    'support-section',
+                    'gallery-section',
+                    'interactive-section',
+                    'history-section',
+                    'final-section'
+
+                ];
+
+
+                sections.forEach(
+                    (secId, index) => {
+
+                        const el =
+                            document.getElementById(
+                                secId
                             );
 
-                        }
-
-                    });
-
-                },
-                {
-                    threshold: 0.1
-                }
-            );
+                        if (!el) return;
 
 
-        document
-            .querySelectorAll('.fade-in-element')
-            .forEach(el => {
-
-                observer.observe(el);
-
-            });
+                        el.style.display =
+                            'flex';
 
 
+                        setTimeout(() => {
 
-        // ==================================================
-        // MODAL FOTO
-        // ==================================================
+                            el.classList.add(
+                                'show'
+                            );
 
-        function openModal(imgSrc) {
+                        }, index * 150);
 
-            const modal =
-                document.getElementById('myModal');
-
-
-            const modalImg =
-                document.getElementById('img01');
+                    }
+                );
 
 
-            modal.style.display = 'flex';
+                setTimeout(() => {
 
-            modalImg.src = imgSrc;
+                    updateStoryProgress();
+
+                }, 1200);
+
+            }, 900);
 
         }
 
 
-        function closeModal() {
+        /* =================================================
+           LETTER SCROLL LOCK
+        ================================================== */
 
-            const modal =
-                document.getElementById('myModal');
+        let savedScrollPosition = 0;
 
 
-            modal.style.display = 'none';
+        function lockPageScroll() {
+
+            savedScrollPosition =
+                window.scrollY;
+
+
+            document.body.classList.add(
+                'letter-open'
+            );
+
+
+            document.body.style.position =
+                'fixed';
+
+            document.body.style.top =
+                `-${savedScrollPosition}px`;
+
+            document.body.style.left =
+                '0';
+
+            document.body.style.right =
+                '0';
+
+            document.body.style.width =
+                '100%';
 
         }
 
 
+        function unlockPageScroll() {
 
-        // ==================================================
-        // POPUP SURAT OTOMATIS
-        // ==================================================
-
-        let hasShownEnvelopePopup = false;
-
-
-        const envelopePopupObserver =
-            new IntersectionObserver(
-                (entries) => {
-
-                    entries.forEach(entry => {
-
-                        if (
-                            entry.isIntersecting &&
-                            !hasShownEnvelopePopup
-                        ) {
-
-                            const popup =
-                                document.getElementById(
-                                    'envelope-invitation'
-                                );
-
-
-                            popup.style.display = 'flex';
-
-
-                            setTimeout(() => {
-
-                                popup.classList.add(
-                                    'show'
-                                );
-
-                            }, 50);
-
-
-                            document.body.style.overflow =
-                                'hidden';
-
-                            document.documentElement.style.overflow =
-                                'hidden';
-
-                            document.body.classList.add('popup-open');
-
-
-                            hasShownEnvelopePopup = true;
-
-                        }
-
-                    });
-
-                },
-                {
-                    threshold: 0.5
-                }
+            document.body.classList.remove(
+                'letter-open'
             );
 
 
-        const supportSecTarget =
-            document.getElementById(
-                'support-section'
-            );
+            document.body.style.position =
+                '';
+
+            document.body.style.top =
+                '';
+
+            document.body.style.left =
+                '';
+
+            document.body.style.right =
+                '';
+
+            document.body.style.width =
+                '';
 
 
-        if (supportSecTarget) {
-
-            envelopePopupObserver.observe(
-                supportSecTarget
+            window.scrollTo(
+                0,
+                savedScrollPosition
             );
 
         }
 
 
+        /* =================================================
+           LETTER
+        ================================================== */
 
-        // ==================================================
-        // TUTUP POPUP SURAT
-        // ==================================================
-
-        function closeEnvelopePopup() {
+        function openEnvelope() {
 
             const popup =
                 document.getElementById(
                     'envelope-invitation'
                 );
 
+            if (popup) {
 
-            popup.classList.remove('show');
+                popup.classList.add(
+                    'active'
+                );
 
-
-            setTimeout(() => {
-
-                popup.style.display = 'none';
-
-                document.body.style.overflow = '';
-
-                document.documentElement.style.overflow = '';
-
-                document.body.classList.remove('popup-open');
-
-                document.getElementById('message-letter-button')?.classList.add('visible');
-
-            }, 300);
+            }
 
         }
 
 
+        function closeEnvelope() {
 
-        // ==================================================
-        // BUKA SURAT DARI POPUP
-        // ==================================================
+            const popup =
+                document.getElementById(
+                    'envelope-invitation'
+                );
 
-        function openLetterFromPopup() {
+            if (popup) {
 
-            const envelope = document.getElementById('envelope-invitation');
+                popup.classList.remove(
+                    'active'
+                );
 
-            envelope.classList.remove('show');
-            envelope.style.display = 'none';
+            }
 
-            document.body.classList.remove('popup-open');
 
-            document.getElementById(
-                'letterPopup'
-            ).style.display = 'flex';
+            /*
+             * Setelah popup undangan ditutup,
+             * tombol buka surat tetap tersedia
+             * di bagian pesan.
+             */
 
-            document.body.classList.add('popup-open');
-            document.body.style.overflow = 'hidden';
-            document.documentElement.style.overflow = 'hidden';
+            const button =
+                document.getElementById(
+                    'messageLetterButton'
+                );
+
+            if (button) {
+
+                button.classList.add(
+                    'visible'
+                );
+
+            }
 
         }
-
 
 
         function openLetter() {
 
-            document.getElementById(
-                'letterPopup'
-            ).style.display = 'flex';
+            /*
+             * Tutup popup undangan terlebih dahulu.
+             */
 
-            document.body.classList.add('popup-open');
-            document.body.style.overflow = 'hidden';
-            document.documentElement.style.overflow = 'hidden';
+            const invitation =
+                document.getElementById(
+                    'envelope-invitation'
+                );
+
+            if (invitation) {
+
+                invitation.classList.remove(
+                    'active'
+                );
+
+            }
+
+
+            setTimeout(() => {
+
+                const popup =
+                    document.getElementById(
+                        'letterPopup'
+                    );
+
+                if (popup) {
+
+                    popup.classList.add(
+                        'active'
+                    );
+
+
+                    /*
+                     * Kunci halaman belakang
+                     * supaya tidak bisa discroll.
+                     */
+
+                    lockPageScroll();
+
+                }
+
+            }, 250);
 
         }
-
 
 
         function closeLetter() {
 
-            document.getElementById(
-                'letterPopup'
-            ).style.display = 'none';
+            const popup =
+                document.getElementById(
+                    'letterPopup'
+                );
 
-            document.body.classList.remove('popup-open');
-            document.body.style.overflow = '';
-            document.documentElement.style.overflow = '';
+            if (popup) {
 
-            document.getElementById('message-letter-button')?.classList.add('visible');
+                popup.classList.remove(
+                    'active'
+                );
+
+            }
+
+
+            /*
+             * Buka kembali scroll halaman.
+             */
+
+            unlockPageScroll();
+
+
+            /*
+             * Setelah surat ditutup,
+             * tombol buka surat tetap ada.
+             */
+
+            const button =
+                document.getElementById(
+                    'messageLetterButton'
+                );
+
+            if (button) {
+
+                button.classList.add(
+                    'visible'
+                );
+
+            }
 
         }
 
 
+        /* =================================================
+           AUTO LETTER INVITATION
+           MUNCUL SAAT SCROLL KE BAGIAN PESAN
+        ================================================== */
 
-        // ==================================================
-        // OUR HISTORY - BUKA VIDEO
-        // ==================================================
+        let messagePopupShown = false;
+
+
+        function setupMessagePopupObserver() {
+
+            const messageSection =
+                document.getElementById(
+                    'content-section'
+                );
+
+
+            if (!messageSection) {
+                return;
+            }
+
+
+            const messageObserver =
+                new IntersectionObserver(
+                    function(entries) {
+
+                        entries.forEach(
+                            function(entry) {
+
+                                if (
+                                    entry.isIntersecting &&
+                                    !messagePopupShown
+                                ) {
+
+                                    messagePopupShown =
+                                        true;
+
+
+                                    setTimeout(() => {
+
+                                        const popup =
+                                            document.getElementById(
+                                                'envelope-invitation'
+                                            );
+
+
+                                        if (popup) {
+
+                                            popup.classList.add(
+                                                'active'
+                                            );
+
+                                        }
+
+                                    }, 700);
+
+                                }
+
+                            }
+                        );
+
+                    },
+                    {
+                        threshold: 0.5
+                    }
+                );
+
+
+            messageObserver.observe(
+                messageSection
+            );
+
+        }
+
+
+        /* =================================================
+           BOUQUET
+        ================================================== */
+
+        function showBouquet() {
+
+            const loading =
+                document.getElementById(
+                    'bouquetLoading'
+                );
+
+
+            if (loading) {
+
+                loading.classList.add(
+                    'active'
+                );
+
+            }
+
+
+            setTimeout(() => {
+
+                if (loading) {
+
+                    loading.classList.remove(
+                        'active'
+                    );
+
+                }
+
+
+                const popup =
+                    document.getElementById(
+                        'bouquetPopup'
+                    );
+
+
+                if (popup) {
+
+                    popup.classList.add(
+                        'active'
+                    );
+
+                }
+
+            }, 1200);
+
+        }
+
+
+        function closeBouquet() {
+
+            const popup =
+                document.getElementById(
+                    'bouquetPopup'
+                );
+
+
+            if (popup) {
+
+                popup.classList.remove(
+                    'active'
+                );
+
+            }
+
+        }
+
+
+        /* =================================================
+           HISTORY VIDEO
+        ================================================== */
 
         function openHistoryVideo() {
 
@@ -1287,41 +1366,16 @@
                 );
 
 
-            const video =
-                document.getElementById(
-                    'historyVideo'
+            if (popup) {
+
+                popup.classList.add(
+                    'active'
                 );
 
-
-            popup.style.display = 'flex';
-
-
-            document.body.style.overflow =
-                'hidden';
-
-            document.documentElement.style.overflow =
-                'hidden';
-
-
-            setTimeout(() => {
-
-                popup.classList.add('show');
-
-            }, 50);
-
-
-            /*
-                Video tidak langsung diputar otomatis.
-                User menekan tombol play sendiri.
-            */
+            }
 
         }
 
-
-
-        // ==================================================
-        // OUR HISTORY - TUTUP VIDEO
-        // ==================================================
 
         function closeHistoryVideo() {
 
@@ -1337,13 +1391,6 @@
                 );
 
 
-            popup.classList.remove('show');
-
-
-            /*
-                Hentikan video ketika popup ditutup.
-            */
-
             if (video) {
 
                 video.pause();
@@ -1353,21 +1400,385 @@
             }
 
 
-            setTimeout(() => {
+            if (popup) {
 
-                popup.style.display = 'none';
+                popup.classList.remove(
+                    'active'
+                );
 
-                document.body.style.overflow =
-                    'auto';
-
-                document.documentElement.style.overflow =
-                    'auto';
-
-            }, 300);
+            }
 
         }
+
+
+        /* =================================================
+           CLOSE POPUP WHEN CLICK OUTSIDE
+        ================================================== */
+
+        document.addEventListener(
+            'click',
+            function(event) {
+
+                /*
+                 * LETTER POPUP
+                 */
+
+                const letterPopup =
+                    document.getElementById(
+                        'letterPopup'
+                    );
+
+
+                if (
+                    letterPopup &&
+                    event.target === letterPopup &&
+                    letterPopup.classList.contains('active')
+                ) {
+
+                    closeLetter();
+
+                }
+
+
+                /*
+                 * BOUQUET POPUP
+                 */
+
+                const bouquetPopup =
+                    document.getElementById(
+                        'bouquetPopup'
+                    );
+
+
+                if (
+                    bouquetPopup &&
+                    event.target === bouquetPopup
+                ) {
+
+                    closeBouquet();
+
+                }
+
+
+                /*
+                 * ENVELOPE INVITATION
+                 */
+
+                const envelopePopup =
+                    document.getElementById(
+                        'envelope-invitation'
+                    );
+
+
+                if (
+                    envelopePopup &&
+                    event.target === envelopePopup
+                ) {
+
+                    closeEnvelope();
+
+                }
+
+
+                /*
+                 * HISTORY VIDEO
+                 */
+
+                const historyPopup =
+                    document.getElementById(
+                        'historyVideoPopup'
+                    );
+
+
+                if (
+                    historyPopup &&
+                    event.target === historyPopup
+                ) {
+
+                    closeHistoryVideo();
+
+                }
+
+            }
+        );
+
+
+        /* =================================================
+           STORY PROGRESS
+        ================================================== */
+
+        function updateStoryProgress() {
+
+            const sections = [
+
+                'gift-section',
+                'content-section',
+                'support-section',
+                'gallery-section',
+                'interactive-section',
+                'history-section'
+
+            ];
+
+
+            const progressItems =
+                document.querySelectorAll(
+                    '.progress-item'
+                );
+
+
+            let currentIndex = 0;
+
+
+            sections.forEach(
+                function(sectionId, index) {
+
+                    const section =
+                        document.getElementById(
+                            sectionId
+                        );
+
+
+                    if (!section) {
+                        return;
+                    }
+
+
+                    const rect =
+                        section.getBoundingClientRect();
+
+
+                    if (
+                        rect.top <=
+                        window.innerHeight * 0.55
+                    ) {
+
+                        currentIndex =
+                            index;
+
+                    }
+
+                }
+            );
+
+
+            progressItems.forEach(
+                function(item, index) {
+
+                    item.classList.toggle(
+                        'active',
+                        index === currentIndex
+                    );
+
+
+                    item.classList.toggle(
+                        'completed',
+                        index < currentIndex
+                    );
+
+                }
+            );
+
+        }
+
+
+        window.addEventListener(
+            'scroll',
+            updateStoryProgress,
+            {
+                passive: true
+            }
+        );
+
+
+        /* =================================================
+           REVEAL SECTIONS ON SCROLL
+        ================================================== */
+
+        const observer =
+            new IntersectionObserver(
+                function(entries) {
+
+                    entries.forEach(
+                        function(entry) {
+
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                entry.target.classList.add(
+                                    'show'
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+                {
+                    threshold: 0.15
+                }
+            );
+
+
+        document
+            .querySelectorAll('.section')
+            .forEach(
+                function(section) {
+
+                    observer.observe(
+                        section
+                    );
+
+                }
+            );
+
+
+        /* =================================================
+           SMOOTH SCROLL
+        ================================================== */
+
+        document
+            .querySelectorAll('.progress-item')
+            .forEach(
+                function(item) {
+
+                    item.addEventListener(
+                        'click',
+                        function() {
+
+                            const targetId =
+                                item.dataset.section;
+
+
+                            const target =
+                                document.getElementById(
+                                    targetId
+                                );
+
+
+                            if (
+                                target &&
+                                target.style.display !==
+                                'none'
+                            ) {
+
+                                target.scrollIntoView({
+                                    behavior: 'smooth'
+                                });
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
+
+
+        /* =================================================
+           ESCAPE TO CLOSE POPUPS
+        ================================================== */
+
+        document.addEventListener(
+            'keydown',
+            function(event) {
+
+                if (
+                    event.key !== 'Escape'
+                ) {
+                    return;
+                }
+
+
+                closeLetter();
+
+                closeBouquet();
+
+                closeEnvelope();
+
+                closeHistoryVideo();
+
+            }
+        );
+
+
+        /* =================================================
+           INITIAL STATE
+        ================================================== */
+
+        document.addEventListener(
+            'DOMContentLoaded',
+            function() {
+
+                const hiddenSections =
+                    document.querySelectorAll(
+                        '.hidden-section'
+                    );
+
+
+                hiddenSections.forEach(
+                    function(section) {
+
+                        section.style.display =
+                            'none';
+
+                    }
+                );
+
+
+                const finalSection =
+                    document.getElementById(
+                        'final-section'
+                    );
+
+
+                if (finalSection) {
+
+                    finalSection.style.display =
+                        'none';
+
+                }
+
+
+                /*
+                 * Tombol buka surat awalnya
+                 * disembunyikan.
+                 */
+
+                const letterButton =
+                    document.getElementById(
+                        'messageLetterButton'
+                    );
+
+
+                if (letterButton) {
+
+                    letterButton.classList.remove(
+                        'visible'
+                    );
+
+                }
+
+
+                updateStoryProgress();
+
+
+                /*
+                 * Pasang observer setelah
+                 * DOM selesai dimuat.
+                 */
+
+                setupMessagePopupObserver();
+
+            }
+        );
 
     </script>
 
 </body>
 </html>
+
+
+coba kamu sesuaikan ke htmlku agar tidak salah, kirim versi lengkapnya dan jangan ubah yang lainnya
